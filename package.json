@@ -1,0 +1,29 @@
+{
+  "name": "comp231_001_team_7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giangnguyen13/comp231_001_team_7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giangnguyen13/comp231_001_team_7/issues"
+  },
+  "homepage": "https://github.com/giangnguyen13/comp231_001_team_7#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.0",
+    "morgan": "^1.10.0"
+  }
+}

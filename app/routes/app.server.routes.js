@@ -6,8 +6,9 @@ const LoginController = require('../controllers/login.server.controller');
 module.exports = function (app) {
     // Mount the 'index' controller's 'render' method
     app.get('/', HomeController.index);
+    app.get('/welcome', LoginController.verifyUser, HomeController.welcome);
     app.get('/login', LoginController.renderSignin);
-    app.post('/login', LoginController.authenticate);
+    app.post('/login', LoginController.authenticate, LoginController.welcome);
     app.get('/signup', LoginController.renderSignup);
     app.post('/signup', LoginController.signup);
     app.get('/users', LoginController.display);

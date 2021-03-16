@@ -7,8 +7,13 @@
         <%- include('./partials/navbar'); %>
         <main class="container">
             <div class="starter-template text-center py-5 px-3">
-                <h1>Hello, this is root page. Feel free to customize</h1>
-                <h1>You are not logged in</h1>
+                <%if (customerName !== null) { %>
+                <h1>You are logged in now.!</h1>
+                <% }%>
+                <h2>
+                    Welcome page, maybe put more personal-related stuff here if
+                    logged here
+                </h2>
             </div>
         </main>
     </body>

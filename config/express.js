@@ -1,11 +1,13 @@
-﻿// Load the module dependencies
+// Load the module dependencies
 const config = require('./config');
 const express = require('express');
 const morgan = require('morgan');
 const compress = require('compression');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
 const methodOverride = require('method-override');
-const session = require('express-session');
+const flash = require('connect-flash');
 
 // Define the Express configuration method
 module.exports = function () {
@@ -19,7 +21,7 @@ module.exports = function () {
         app.use(compress());
     }
 
-    // Use the 'body-parser' and 'method-override' middleware functions
+    // Use the 'body-parser' and 'cookie-parser' middleware functions
     app.use(
         bodyParser.urlencoded({
             extended: true,
@@ -27,19 +29,16 @@ module.exports = function () {
     );
     app.use(bodyParser.json());
     app.use(methodOverride('_method'));
+    app.use(cookieParser());
 
-    // Configure the 'session' middleware
-    app.use(
-        session({
-            //a session is uninitialized when it is new but not modified
-            //force a session that is "uninitialized" to be saved to the store
-            saveUninitialized: true,
-            //forces the session to be saved back to the session store
-            //even if the session was never modified during the request
-            resave: true,
-            secret: config.sessionSecret, // secret used to sign the session ID cookie
-        })
-    );
+    app.use(function (req, res, next) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header(
+            'Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept'
+        );
+        next();
+    });
 
     // Set the application view engine and 'views' folder
     app.set('views', './app/views');

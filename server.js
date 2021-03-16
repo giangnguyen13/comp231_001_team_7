@@ -14,9 +14,8 @@ const app = configureExpress();
 
 //app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
-
 // Use the Express application instance to listen to the '3000' port
-app.listen(3000);
+app.listen(3030);
 
 // Log the server status to the console
 console.log('Server running at http://localhost:3000/');

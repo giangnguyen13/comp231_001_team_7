@@ -1,6 +1,5 @@
-﻿//Development configuration options
+// Set the 'development' environment configuration object
 module.exports = {
-    db: 'mongodb://localhost/mean-book',
-    //To sign the session identifier, use a secret string
-    sessionSecret: 'developmentSessionSecret'
+    db: 'mongodb://localhost/comp-231-07',
+    secretKey: 'real_secret',
 };

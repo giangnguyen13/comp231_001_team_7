@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="css\styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body class="bodyStyle">
+    <div class="container pt-4">
+    <table align="center">
+        <tr>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Product ID:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Title:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Content:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Price:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Update/Delete the Product </label>
+                </div>
+            </td>
+        </tr>
+
+        <% product.forEach(function(product){ %>
+
+            <form method="post" action="/list_products/<%= product.productId %>?_method=PUT">
+                <tr>
+                    <td>
+                        <div>
+                            <input type="text" class="form-control" name="productId" value="<%= product.productId %>" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" class="form-control" name="title" value="<%= product.title %>" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" class="form-control" name="content" value="<%= product.content %>" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="number" class="form-control" name="price" value="<%= product.price %>" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="submit" class="btn btn-sm btn-success" value="Update Product" style="width: 200px" />
+                        </div>
+            </form>
+                        <div>
+                            <form method="post" action="/list_products/<%= product.productId %>?_method=DELETE">
+                                <input type="submit" class="btn btn-sm btn-danger" value="Delete Product" style="width: 200px" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+            <% })%>
+    </table>
+    <div class="text-center pt-4">
+        <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
+    </div>
+</body>
+
+</html>

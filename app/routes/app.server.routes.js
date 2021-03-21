@@ -1,7 +1,7 @@
 // Load the 'index' controller
 const HomeController = require('../controllers/home.server.controller');
 const LoginController = require('../controllers/login.server.controller');
-const ErrorController = require('../controllers/error.server.controller');
+const ProfileController = require('../controllers/profile.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {
@@ -15,6 +15,15 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
-
-    //app.get('/500', ErrorController.error500);
+    app.get(
+        '/profile/view',
+        LoginController.verifyUser,
+        ProfileController.editProfile
+    );
+    app.get(
+        '/profile/edit',
+        LoginController.verifyUser,
+        ProfileController.editProfile
+    );
+    //app.post('/profile/save', LoginController.verifyUser);
 };

@@ -6,7 +6,6 @@ const config = require('../../config/config');
 const jwtExpirySeconds = 300;
 const jwtKey = config.secretKey;
 
-// Create a new error handling controller method
 const getErrorMessage = function (err) {
     // Define the error message variable
     var message = '';
@@ -35,39 +34,23 @@ const getErrorMessage = function (err) {
     return message;
 };
 
-// Create a new controller method that renders the signin page
 exports.renderSignin = function (req, res, next) {
-    // Use the 'response' object to render the signin page
     res.render('login/signin', {
-        // Set the page title variable
         pageTitle: 'Sign-in Form',
     });
 };
-// Create a new controller method that renders the signup page
+
 exports.renderSignup = function (req, res, next) {
-    // Use the 'response' object to render the signup page
     res.render('login/signup', {
-        // Set the page title variable
         pageTitle: 'Sign-up Form',
-        // read the message from flash variable
     });
 };
 
-// Create a new controller method that creates new 'regular' users
 exports.signup = function (req, res, next) {
-    // If user is not connected, create and login a new user,
-    // otherwise redirect the user back to the main application page
-
-    // Create a new 'User' model instance
     const user = new User(req.body);
-    console.log(req.body);
     const message = null;
-
-    // Try saving the new user document
     user.save((err) => {
-        // If an error occurs, use flash messages to report the error
         if (err) {
-            // Use the error handling method to get the error message
             const message = getErrorMessage(err);
             console.log(message);
             // save the error in flash
@@ -101,6 +84,7 @@ exports.authenticate = function (req, res, next) {
                     expiresIn: jwtExpirySeconds,
                 });
                 console.log('token:', token);
+                req.body.userId = user._id;
                 // set the cookie as the token string, with a similar max age as the token
                 // here, the max age is in milliseconds
                 res.cookie('token', token, {
@@ -111,11 +95,12 @@ exports.authenticate = function (req, res, next) {
                 //res.json({status:"success", message: "user found!!!", data:{user:
                 //user, token:token}});
                 //call the next middleware
-                res.render('index', {
-                    pageTitle: 'Brew4You',
-                    customerName: user.fullName,
-                });
-                //next();
+                // res.render('index', {
+                //     pageTitle: 'Brew4You',
+                //     customerName: user.fullName,
+                // });
+                // res.redirect('/home');
+                next();
             } else {
                 res.json({
                     status: 'error',
@@ -126,17 +111,57 @@ exports.authenticate = function (req, res, next) {
         }
     });
 };
+// exports.signout = (req, res) => {
+//     console.log(req.cookies);
+//     res.clearCookie('token');
+//     return res.status('200').json({ message: 'signed out' });
+//     // Redirect the user back to the main application page
+//     //res.redirect('/')
+// };
 
 exports.verifyUser = function (req, res, next) {
-    jwt.verify(req.headers['x-access-token'], jwtKey, function (err, decoded) {
-        if (err) {
-            res.json({ status: 'error', message: err.message, data: null });
-        } else {
-            // add user id to request
-            req.body.userId = decoded.id;
-            next();
+    const token = req.cookies.token;
+    console.log('verify user ' + token);
+    if (!token) {
+        return res.redirect('/login');
+    }
+    var payload;
+    try {
+        payload = jwt.verify(token, jwtKey);
+    } catch (e) {
+        if (e instanceof jwt.JsonWebTokenError) {
+            // if the error thrown is because the JWT is unauthorized, return a 401 error
+            //return res.status(401).end();
+            return res.render('error/error-page', {
+                pageTitle: 'Unauthorized',
+                errorCode: 401,
+                errorMessage: 'Unauthorized Request',
+            });
         }
-    });
+        // otherwise, return a bad request error
+        return res.render('error/error-page', {
+            pageTitle: 'Server Error',
+            errorCode: 500,
+            errorMessage: 'Internal Server Error',
+        });
+    }
+
+    // Finally, return the welcome message to the user, along with their
+    // username given in the token
+    console.log(payload);
+    req.body.userId = payload.id;
+    next();
+    // res.send(`Welcome user with ID: ${payload.id}!`);
+    // jwt.verify(req.headers['x-access-token'], jwtKey, function (err, decoded) {
+    //     if (err) {
+    //         res.json({ status: 'error', message: err.message, data: null });
+    //         //res.redirect('/login');
+    //     } else {
+    //         // add user id to request
+    //         req.body.userId = decoded.id;
+    //         next();
+    //     }
+    // });
 };
 // protected page uses the JWT token
 exports.welcome = (req, res) => {
@@ -174,6 +199,7 @@ exports.welcome = (req, res) => {
 // Create a new controller method for signing out
 exports.signout = function (req, res) {
     // Redirect the user back to the main application page
+    res.clearCookie('token');
     res.redirect('/');
 };
 //

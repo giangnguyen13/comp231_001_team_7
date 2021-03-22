@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/head'); %>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+        <style>
+            .bs4-order-tracking {
+                margin-bottom: 30px;
+                overflow: hidden;
+                color: #878788;
+                padding-left: 0px;
+                margin-top: 30px;
+            }
+
+            .bs4-order-tracking li {
+                list-style-type: none;
+                font-size: 13px;
+                width: 25%;
+                float: left;
+                position: relative;
+                font-weight: 400;
+                color: #8f8fa5;
+                text-align: center;
+            }
+
+            .bs4-order-tracking li:first-child:before {
+                margin-left: 15px !important;
+                padding-left: 11px !important;
+                text-align: left !important;
+            }
+
+            .bs4-order-tracking li:last-child:before {
+                margin-right: 5px !important;
+                padding-right: 11px !important;
+                text-align: right !important;
+            }
+
+            .bs4-order-tracking li > div {
+                color: #fff;
+                width: 29px;
+                text-align: center;
+                line-height: 29px;
+                display: block;
+                font-size: 12px;
+                background: #878788;
+                border-radius: 50%;
+                margin: auto;
+            }
+
+            .bs4-order-tracking li:after {
+                content: '';
+                width: 150%;
+                height: 2px;
+                background: #a0a0a3;
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                top: 15px;
+                z-index: -1;
+            }
+
+            .bs4-order-tracking li:first-child:after {
+                left: 50%;
+            }
+
+            .bs4-order-tracking li:last-child:after {
+                left: 0% !important;
+                width: 0% !important;
+            }
+
+            .bs4-order-tracking li.active {
+                font-weight: bold;
+                color: #38181c;
+            }
+
+            .bs4-order-tracking li.active > div {
+                background: #836f71;
+            }
+
+            .bs4-order-tracking li.active:after {
+                background: #4b3033;
+            }
+
+            .card-timeline {
+                background-color: #fff;
+                z-index: 0;
+            }
+            #wrapper {
+                overflow-x: hidden;
+            }
+
+            #sidebar-wrapper {
+                min-height: 100vh;
+                margin-left: -15rem;
+                -webkit-transition: margin 0.25s ease-out;
+                -moz-transition: margin 0.25s ease-out;
+                -o-transition: margin 0.25s ease-out;
+                transition: margin 0.25s ease-out;
+            }
+
+            #sidebar-wrapper .sidebar-heading {
+                padding: 0.875rem 1.25rem;
+                font-size: 1.2rem;
+            }
+
+            #sidebar-wrapper .list-group {
+                width: 15rem;
+            }
+
+            #page-content-wrapper {
+                min-width: 100vw;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            @media (min-width: 768px) {
+                #sidebar-wrapper {
+                    margin-left: 0;
+                }
+
+                #page-content-wrapper {
+                    min-width: 0;
+                    width: 100%;
+                }
+
+                #wrapper.toggled #sidebar-wrapper {
+                    margin-left: -15rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('./partials/navbar'); %>
+        <div class="input-group rounded" style="width: 200px; margin: 10px">
+            <input
+                type="search"
+                class="form-control rounded"
+                placeholder="Search by Order #"
+                aria-label="Search"
+                aria-describedby="search-addon"
+            />
+        </div>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="list-group list-group-flush">
+                    <a
+                        href="#table01"
+                        class="list-group-item list-group-item-action bg-light"
+                        >Current Order</a
+                    >
+                    <a
+                        href="#table02"
+                        class="list-group-item list-group-item-action bg-light"
+                        >History</a
+                    >
+                </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <main class="container">
+                        <div class="card card-timeline px-2 border-none">
+                            <ul class="bs4-order-tracking">
+                                <li class="step active">Ordered</li>
+                                <li class="step active">Ready</li>
+                                <li class="step">Shipped</li>
+                                <li class="step">Delivered</li>
+                            </ul>
+                            <h5 class="text-center">
+                                <b>Ready</b>. The order is ready!
+                            </h5>
+                        </div>
+                        <br />
+                        <h3>Updates:</h3>
+                        <table class="table" id="table01">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col" colspan="2">Description</th>
+                                    <th scope="col">Event</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>03/02/2021 - 17:00</td>
+                                    <td colspan="2">Processing your order.</td>
+                                    <td>Ready</td>
+                                </tr>
+                                <tr>
+                                    <td>03/02/2021 - 16:30</td>
+                                    <td colspan="2">We received your order</td>
+                                    <td>Orded</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <h3>Order History</h3>
+                        <table class="table" id="table02">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Items</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>
+                                        <div>
+                                            <ol>
+                                                <li>Americano</li>
+                                                <li>Mocha</li>
+                                                <li>Irish</li>
+                                            </ol>
+                                        </div>
+                                    </td>
+                                    <td>$25.0</td>
+                                    <td>2021-02-20</td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>
+                                        <div>
+                                            <ol>
+                                                <li>Cafe Latte</li>
+                                            </ol>
+                                        </div>
+                                    </td>
+                                    <td>$10.0</td>
+                                    <td>2021-01-10</td>
+                                </tr>
+                                <tr>
+                                    <td>003</td>
+                                    <td>
+                                        <div>
+                                            <ol>
+                                                <li>Cafe Latte</li>
+                                                <li>Flat White</li>
+                                            </ol>
+                                        </div>
+                                    </td>
+                                    <td>$20.0</td>
+                                    <td>2020-11-08</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

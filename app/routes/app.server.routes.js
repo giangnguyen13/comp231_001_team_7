@@ -26,4 +26,8 @@ module.exports = function (app) {
         ProfileController.editProfile
     );
     //app.post('/profile/save', LoginController.verifyUser);
+
+    app.get('/checkout', HomeController.checkout);
+    app.get('/orderhistory', HomeController.orderhistory);
+
 };

@@ -3,9 +3,8 @@ var Product = require('mongoose').model('Product');
 
 // Create a new 'renderAdd' controller method
 exports.renderAdd = function (req, res) {
-    // Use the 'response' object to render the 'add_product' view with a 'title' property
-    res.render('add_product', { title: 'Add New Product' });
-
+    // Use the 'response' object to render the 'add_product' view with a 'pageTitle' property
+    res.render('products/add_product', { pageTitle: 'Add New Product' });
 };
 
 // Create a new 'createProduct' controller method
@@ -38,8 +37,8 @@ exports.readProduct = function (req, res, next) {
             return next(err);
         } else {
             //
-            res.render('list_products', {
-                title: 'Products',
+            res.render('products/list_products', {
+                pageTitle: 'Products',
                 product: products,
             });
         }

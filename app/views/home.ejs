@@ -5,12 +5,76 @@
     </head>
     <body>
         <%- include('./partials/navbar-auth'); %>
+        <div class="alert">
+            <h1>Hello <%= customerName %>, you are logged in</h1>
+        </div>
         <main class="container">
             <div class="starter-template text-center py-5 px-3">
-                <h1>Hello <%= customerName %>, you are logged in</h1>
-                <a href="/list_products" class="btn btn-lg btn-primary">List Products for admin</a>
-                <a href="/menu_list" class="btn btn-lg btn-primary">Menu List for customer</a>
+                <button class="btn">ORDER NOW</button>
+                <div class=sub-text>
+                <h2>Brew4You Coffee</h2>
+                <h1>We Brew Specialty Coffee</h1>
+                </div>
+                <div class=intro>
+                  <h6>Our love for specialty coffee is never-ending. With over 365 days a year at origin working with the best growers on the planet, only the best beans make the grade. Countless hours cupping and testing our blends means consistently amazing coffee, so your morning starts right every time.</h6>  
+                </div>
+            </div>
+            <h4 style="text-align:center;">Featured Menu</h4>
+            <div class="featured">
+                <img src="/img/flat_white.png">
+                <img src="/img/iced_americano.png">
+                <img src="/img/iced_latte.png">
             </div>
         </main>
+        <script>
+            // just to make sure this is working
+            hello('this is a param');
+        </script>
     </body>
+            
+    <style>
+        body {
+            background-image: url('/img/cover.jpg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        .alert {
+            margin-top: -20px;
+            text-align: right;
+            color: #ffffff;
+        }
+        button.btn {
+            margin-top: 250px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #b35900;
+            border-radius: 10px;
+            color: #ffffff;
+        }
+        .sub-text {
+            margin-top: 130px;
+            color: #ac7339;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        .sub-text h1 {
+            margin-top: 20px;
+            color: #030303;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        .intro {
+            margin-left: 150px;
+            margin-right: 150px;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        .featured {
+            margin-top: 4%;
+            margin-bottom: 20%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .featured img {
+            width: 24%;
+            flex-direction: row;
+        }
+    </style>
 </html>

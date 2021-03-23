@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%- include('../partials/head'); %>
+</head>
+<body>
+    <%- include('../partials/navbar-auth'); %>
+    <h2 class="text-center">This page is for customer</h2>
+    <div class="container pt-4">
+        <% product.forEach(function(product){ %>
+
+            <form method="post" action="">
+                <div>
+                    <div>Id: <%= product.productId %> </div>
+                    <div>Title: <%= product.title %></div>
+                    <div>Content: <%= product.content %></div>
+                    <div>Price: <%= product.price %></div>
+                    <div>
+                        <input type="number" class="form-control" placeholder="Quantity" value="" />
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-sm btn-success" value="Add to cart" style="width: 200px" disabled />
+                    </div>
+                </div>
+            </form>
+        <% })%>
+    <div class="text-center pt-4">
+        <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
+    </div>
+</body>
+
+</html>

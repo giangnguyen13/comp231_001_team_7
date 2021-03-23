@@ -1,13 +1,17 @@
 const User = require('mongoose').model('User');
 
 exports.index = function (req, res) {
-    res.render('index', {
-        pageTitle: 'Brew4You',
-    });
+    const token = req.cookies.token;
+    if (!token) {
+        res.render('index', {
+            pageTitle: 'Brew4You',
+        });
+    } else {
+        res.redirect('/home');
+    }
 };
 
 exports.home = function (req, res) {
-    console.log(req.body.userId);
     User.findById(req.body.userId, (err, user) => {
         if (err) {
             return res.render('error/error-page', {

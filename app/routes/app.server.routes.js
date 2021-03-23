@@ -2,6 +2,7 @@
 const HomeController = require('../controllers/home.server.controller');
 const LoginController = require('../controllers/login.server.controller');
 const ProfileController = require('../controllers/profile.server.controller');
+const StaffController = require('../controllers/staff.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {
@@ -26,4 +27,16 @@ module.exports = function (app) {
         ProfileController.editProfile
     );
     //app.post('/profile/save', LoginController.verifyUser);
+
+    // routes related to staff requirements:
+    app.get('/staff/login', StaffController.renderSignin);
+    app.post(
+        '/staff/login',
+        StaffController.authenticate,
+        StaffController.staffPortal
+    );
+    app.get('/staff/signup', StaffController.renderSignup);
+    app.post('/staff/signup', StaffController.signup);
+    app.get('/staff/signout', StaffController.signout);
+    app.get('/staff', StaffController.displayStaffList);
 };

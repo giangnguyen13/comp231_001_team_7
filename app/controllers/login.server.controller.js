@@ -34,6 +34,63 @@ const getErrorMessage = function (err) {
     return message;
 };
 
+exports.renderForgetPassword = function (req, res, next) {
+    res.render('login/forgetPassword', {
+        pageTitle: 'Forgot Password | Brew4You',
+        alert: null,
+    });
+};
+
+exports.sendVerification = function (req, res, next) {
+    const userEmail = req.body.email;
+    User.findOne({ email: userEmail }, (err, user) => {
+        if (err) {
+            return next(err);
+        } else {
+            console.log(user);
+            if (user) {
+                res.render('login/forgetPassword', {
+                    pageTitle: 'Forgot Password | Brew4You',
+                    alert: {
+                        type: 'alert-success',
+                        title: 'Hurray.! We found your email',
+                        message: `To change password for ${userEmail} account, click the button below`,
+                        id: user._id,
+                    },
+                });
+            } else {
+                res.render('login/forgetPassword', {
+                    pageTitle: 'Forgot Password | Brew4You',
+                    alert: {
+                        type: 'alert-danger',
+                        title: 'Oops.! Email not match',
+                        message: `We cannot find ${userEmail} in your credential records. Please try again`,
+                    },
+                });
+            }
+        }
+    });
+};
+
+exports.changePassword = function (req, res, next) {
+    const update = { password: bcrypt.hashSync(req.body.password, 10) };
+
+    User.findByIdAndUpdate(req.body._id, update, function (err, user) {
+        if (err) {
+            return res.json(err);
+        }
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+            res.redirect('/login');
+        } else {
+            res.json({
+                status: 'error',
+                message: 'not good',
+                data: null,
+            });
+        }
+    });
+};
+
 exports.renderSignin = function (req, res, next) {
     res.render('login/signin', {
         pageTitle: 'Sign-in Form',

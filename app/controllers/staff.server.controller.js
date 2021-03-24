@@ -33,14 +33,12 @@ const getErrorMessage = function (err) {
     return message;
 };
 
-// ** NOTE ** : 'staffSignIn.ejs' is required
 exports.renderSignin = function (req, res, next) {
     res.render('login/staffSignIn', {
         pageTitle: 'Staff Sign-in Form',
     });
 };
 
-// ** NOTE ** : 'staffSignUp.ejs' is required
 exports.renderSignup = function (req, res, next) {
     res.render('login/staffSignUp', {
         pageTitle: 'Staff Sign-up Form',
@@ -54,9 +52,9 @@ exports.signup = function (req, res, next) {
         if (err) {
             const message = getErrorMessage(err);
             console.log(message);
-            return res.redirect('/login/staffSignUp');
+            return res.redirect('/staff/signup');
         }
-        return res.redirect('/');
+        return res.redirect('/staff/login');
     });
 };
 
@@ -68,6 +66,9 @@ exports.authenticate = function (req, res, next) {
         if (err) {
             return next(err);
         } else {
+            if (!staff) {
+                return res.redirect('/staff/login');
+            }
             console.log(staff);
             //compare passwords
             if (bcrypt.compareSync(password, staff.password)) {
@@ -165,7 +166,6 @@ exports.displayStaffList = function (req, res, next) {
     });
 };
 
-// ** NOTE ** : 'staffPortal.ejs' is required
 exports.staffPortal = function (req, res) {
     Staff.findById(req.body.staffId, (err, staff) => {
         if (err) {

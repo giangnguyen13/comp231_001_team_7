@@ -13,14 +13,17 @@ const StaffSchema = new Schema({
     role: String,
     email: {
         type: String,
-        // Validate the email format
-        match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+        // Validate the email format (must include '@brew4you.ca')
+        match: [
+            /[a-zA-Z]+@brew4you\.ca/i,
+            '(Staff) Please fill a valid email address - email format must include @brew4you.ca',
+        ],
     },
     password: {
         type: String,
         // Validate the 'password' value length
         validate: [
-            (password) => password && password.length > 6,
+            (password) => password && password.length > 5,
             'Password should be longer',
         ],
     },

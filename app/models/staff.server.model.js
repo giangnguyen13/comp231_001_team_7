@@ -15,7 +15,7 @@ const StaffSchema = new Schema({
         type: String,
         // Validate the email format (must include '@brew4you.ca')
         match: [
-            /[a-zA-Z]+@brew4you\.ca/i,
+            /[a-zA-Z0-9]+@brew4you\.ca/i,
             '(Staff) Please fill a valid email address - email format must include @brew4you.ca',
         ],
     },

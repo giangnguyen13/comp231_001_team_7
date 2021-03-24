@@ -20,7 +20,7 @@ module.exports = function (app) {
     app.get(
         '/profile/view',
         LoginController.verifyUser,
-        ProfileController.editProfile
+        ProfileController.viewProfile
     );
     app.get(
         '/profile/edit',

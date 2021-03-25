@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <%- include('./partials/head'); %>
+        <link href="../../public/css/app.css" rel="stylesheet" type="text/css">
     </head>
-    <body>
+    <body class="homebody">
         <%- include('./partials/navbar'); %>
         <main class="container">
             <div class="starter-template text-center py-5 px-3">
@@ -28,50 +29,4 @@
             hello('this is a param');
         </script>
     </body>
-            
-    <style>
-        body {
-            background-image: url('/img/cover.jpg');
-            background-repeat: no-repeat;
-            background-size: 100%;
-        }
-        .alert {
-            margin-top: -20px;
-            text-align: right;
-            color: #ffffff;
-        }
-        button.btn {
-            margin-top: 250px;
-            font-size: 20px;
-            font-weight: bold;
-            background-color: #b35900;
-            border-radius: 10px;
-            color: #ffffff;
-        }
-        .sub-text {
-            margin-top: 130px;
-            color: #ac7339;
-            font-family:Georgia, 'Times New Roman', Times, serif;
-        }
-        .sub-text h1 {
-            margin-top: 20px;
-            color: #030303;
-            font-family:Georgia, 'Times New Roman', Times, serif;
-        }
-        .intro {
-            margin-left: 150px;
-            margin-right: 150px;
-            font-family:Georgia, 'Times New Roman', Times, serif;
-        }
-        .featured {
-            margin-top: 4%;
-            margin-bottom: 20%;
-            display: flex;
-            justify-content: space-between;
-        }
-        .featured img {
-            width: 24%;
-            flex-direction: row;
-        }
-    </style>
 </html>

@@ -8,8 +8,9 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.wordWrap": "on",
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[html]": {
+        "editor.defaultFormatter": null
     },
     "prettier.tabWidth": 4
 }

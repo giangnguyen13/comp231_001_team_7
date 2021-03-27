@@ -20,6 +20,12 @@ module.exports = function () {
     // Load the 'User' model
     require('../app/models/user.server.model');
 
+    // Load the 'Product' model
+    require('../app/models/product.server.model');
+
+    // Load the 'Staff' model
+    require('../app/models/staff.server.model');
+
     // Return the Mongoose connection instance
     return db;
 };

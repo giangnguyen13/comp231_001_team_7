@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body>
+        <%- include('../partials/navbar-auth'); %>
+        <main class="container">
+            <div class="starter-template text-center py-5 px-3">
+                <h1>This is authenticated route</h1>
+                <h1>You can get all user model field in here</h1>
+                <h1><%= user.firstName%> <%= user.lastName%></h1>
+                <h1>ID (use as hidden field): <%= user._id%></h1>
+            </div>
+        </main>
+    </body>
+</html>

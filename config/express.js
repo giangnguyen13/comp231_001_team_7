@@ -45,7 +45,7 @@ module.exports = function () {
     app.set('view engine', 'ejs');
     app.engine('html', require('ejs').renderFile);
 
-    // Load the 'index' routing file
+    // Load the 'app' routing file
     require('../app/routes/app.server.routes.js')(app);
 
     // Configure static file serving

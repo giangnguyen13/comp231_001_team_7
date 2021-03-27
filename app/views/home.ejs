@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/head'); %>
+    </head>
+    <body>
+        <%- include('./partials/navbar-auth'); %>
+        <main class="container">
+            <div class="starter-template text-center py-5 px-3">
+                <h1>Hello <%= customerName %>, you are logged in</h1>
+                <a href="/list_products" class="btn btn-lg btn-primary">List Products for admin</a>
+                <a href="/menu_list" class="btn btn-lg btn-primary">Menu List for customer</a>
+            </div>
+        </main>
+    </body>
+</html>

@@ -9,7 +9,7 @@ const MenuListController = require('../controllers/menu_list.server.controller')
 // Define the routes module' method
 module.exports = function (app) {
     app.get('/', HomeController.index);
-    app.get('/welcome', LoginController.verifyUser, HomeController.welcome);
+    // app.get('/welcome', LoginController.verifyUser, HomeController.welcome);
     app.get('/login', LoginController.renderSignin);
     app.post('/login', LoginController.authenticate, HomeController.home);
     app.get('/signup', LoginController.renderSignup);

@@ -30,6 +30,9 @@ module.exports = function (app) {
 
     //app.post('/profile/save', LoginController.verifyUser);
 
+    app.get('/checkout', HomeController.checkout);
+    //app.get('/orderhistory', HomeController.orderhistory);
+
     // routes related to staff requirements:
     app.get('/staff/login', StaffController.renderSignin);
     app.post(

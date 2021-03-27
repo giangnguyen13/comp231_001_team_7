@@ -17,16 +17,13 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
-    app.get(
-        '/profile/view',
+    app.route('/profile/view').get(
         LoginController.verifyUser,
         ProfileController.viewProfile
     );
-    app.get(
-        '/profile/edit',
-        LoginController.verifyUser,
-        ProfileController.editProfile
-    );
+    app.route('/profile/edit')
+        .get(LoginController.verifyUser, ProfileController.renderEditProfile)
+        .post(LoginController.verifyUser, ProfileController.saveProfile);
 
     //app.post('/profile/save', LoginController.verifyUser);
 

@@ -1,7 +1,6 @@
 const User = require('mongoose').model('User');
 
-exports.editProfile = function (req, res) {
-    console.log(req.body.userId);
+exports.renderEditProfile = function (req, res) {
     User.findById(req.body.userId, (err, user) => {
         if (err) {
             return res.render('error/error-page', {
@@ -18,8 +17,22 @@ exports.editProfile = function (req, res) {
     });
 };
 
+exports.saveProfile = function (req, res) {
+    const update = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+    };
+    User.findByIdAndUpdate(req.body._id, update, function (err, user) {
+        if (err) {
+            return res.json(err);
+        } else {
+            req.body.userId = user._id;
+            res.redirect('/profile/view');
+        }
+    });
+};
+
 exports.viewProfile = function (req, res) {
-    console.log(req.body.userId);
     User.findById(req.body.userId, (err, user) => {
         if (err) {
             return res.render('error/error-page', {

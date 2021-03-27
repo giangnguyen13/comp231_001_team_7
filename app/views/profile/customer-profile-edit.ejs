@@ -13,7 +13,7 @@
                 Hello <%= user.firstName%> <%= user.lastName%>, you can edit
                 your profile here
             </h1>
-            <form action="/" method="POST">
+            <form action="/profile/edit" method="POST">
                 <input type="hidden" name="_id" value="<%= user._id%>" />
                 <div class="row g-3 justify-content-center">
                     <div class="col-2">
@@ -32,13 +32,6 @@
                     <div class="col-3">
                         <input type="text" id="lastName" name="lastName" class="form-control"
                             value="<%= user.lastName%>" />
-                    </div>
-                </div>
-                <br />
-                <div class="row g-3 justify-content-center">
-                    <div class="col-3">
-                        <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Enter password to confirm the change" />
                     </div>
                 </div>
                 <br />

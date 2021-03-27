@@ -17,15 +17,14 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
-    app.route('/profile/view').get(
-        LoginController.verifyUser,
-        ProfileController.viewProfile
-    );
+
     app.route('/profile/edit')
         .get(LoginController.verifyUser, ProfileController.renderEditProfile)
         .post(LoginController.verifyUser, ProfileController.saveProfile);
 
-    //app.post('/profile/save', LoginController.verifyUser);
+    app.route('/profile/change-password')
+        .get(LoginController.verifyUser, ProfileController.renderChangePassword)
+        .post(LoginController.verifyUser, ProfileController.changePassword);
 
     // routes related to staff requirements:
     app.get('/staff/login', StaffController.renderSignin);

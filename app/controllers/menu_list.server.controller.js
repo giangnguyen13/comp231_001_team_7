@@ -12,7 +12,8 @@ exports.index = function (req, res) {
 };
 
 exports.readMenuList = function (req, res, next) {
-    console.log('in menuList');
+    // if user is authenticate, do something special
+    const isAuthenticate = req.cookies.token != undefined;
     // Use the 'Product' static 'find' method to retrieve the list of items
     Product.find({}, function (err, products) {
         //console.log(product)
@@ -24,6 +25,7 @@ exports.readMenuList = function (req, res, next) {
             //
             res.render('menu_list/menu_list', {
                 pageTitle: 'Menu List',
+                isAuthenticate: isAuthenticate,
                 product: products,
             });
         }

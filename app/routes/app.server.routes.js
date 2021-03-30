@@ -50,4 +50,10 @@ module.exports = function (app) {
 
     //Menu List
     app.route('/menu_list').get(MenuListController.readMenuList);
+
+    app.route('/forgot_password')
+        .get(LoginController.renderForgetPassword)
+        .post(LoginController.sendVerification);
+
+    app.route('/new_password').post(LoginController.changePassword);
 };

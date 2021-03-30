@@ -17,18 +17,14 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
-    app.get(
-        '/profile/view',
-        LoginController.verifyUser,
-        ProfileController.editProfile
-    );
-    app.get(
-        '/profile/edit',
-        LoginController.verifyUser,
-        ProfileController.editProfile
-    );
 
-    //app.post('/profile/save', LoginController.verifyUser);
+    app.route('/profile/edit')
+        .get(LoginController.verifyUser, ProfileController.renderEditProfile)
+        .post(LoginController.verifyUser, ProfileController.saveProfile);
+
+    app.route('/profile/change-password')
+        .get(LoginController.verifyUser, ProfileController.renderChangePassword)
+        .post(LoginController.verifyUser, ProfileController.changePassword);
 
     app.get('/checkout', HomeController.checkout);
     //app.get('/orderhistory', HomeController.orderhistory);
@@ -57,4 +53,10 @@ module.exports = function (app) {
 
     //Menu List
     app.route('/menu_list').get(MenuListController.readMenuList);
+
+    app.route('/forgot_password')
+        .get(LoginController.renderForgetPassword)
+        .post(LoginController.sendVerification);
+
+    app.route('/new_password').post(LoginController.changePassword);
 };

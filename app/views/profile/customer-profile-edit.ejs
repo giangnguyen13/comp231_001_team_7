@@ -6,27 +6,32 @@
 </head>
 
 <body>
-    <%- include('../partials/navbar'); %>
+    <%- include('../partials/navbar-auth'); %>
     <main class="container">
         <div class="starter-template text-center py-5 px-3">
-            <h1>Login Page</h1>
-            <p class="lead">You are not logged in. Please sign in</p>
-            <form action="/login" method="POST">
+            <h1>
+                Hello <%= user.firstName%> <%= user.lastName%>, you can edit
+                your profile here
+            </h1>
+            <form action="/profile/edit" method="POST">
+                <input type="hidden" name="_id" value="<%= user._id%>" />
                 <div class="row g-3 justify-content-center">
                     <div class="col-2">
-                        <label for="email" class="col-form-label">Email</label>
+                        <label for="firstName" class="col-form-label">First Name</label>
                     </div>
                     <div class="col-3">
-                        <input type="email" id="email" name="email" class="form-control" />
+                        <input type="text" id="firstName" name="firstName" class="form-control"
+                            value="<%= user.firstName%>" />
                     </div>
                 </div>
                 <br />
                 <div class="row g-3 justify-content-center">
                     <div class="col-2">
-                        <label for="password" class="col-form-label">Password</label>
+                        <label for="lastName" class="col-form-label">Last Name</label>
                     </div>
                     <div class="col-3">
-                        <input type="password" id="password" name="password" class="form-control" />
+                        <input type="text" id="lastName" name="lastName" class="form-control"
+                            value="<%= user.lastName%>" />
                     </div>
                 </div>
                 <br />
@@ -34,7 +39,6 @@
                     Submit
                 </button>
             </form>
-            <a href="/forgot_password">Forgot password?</a>
         </div>
     </main>
 </body>

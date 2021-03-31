@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body>
+        <div class="container pt-4">
+            <form action="" method="post">
+                <div class="text-center p-4">
+                    <h4>Checkout Page</h4>
+                </div>
+              
+                <div class="col-12">
+                    <div class="row p-2">
+                        <div class="col-5 text-right">
+                            <label style="font-weight: bold">Street Address: </label>
+                        </div>
+                        <div class="col-4">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Street Address"
+                                name="streetAddress"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row p-2">
+                        <div class="col-5 text-right">
+                            <label style="font-weight: bold">City: </label>
+                        </div>
+                        <div class="col-4">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter city"
+                                name="city"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div><span>Subtotal Price is : <%= subTotal %></span></div>
+                <div><span>Total tax is : <%=  tax %></span></div>
+                <div><span>Total Price is : <%=  totalSum %></span></div>
+                <div class="col-12">
+                    <div class="row p-2">
+                        <div class="col-5 text-right"></div>
+                        <div class="col-4">
+                             <a href="/pay" class="btn btn-lg btn-primary">Pay</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center pt-4">
+                            <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
+
+                            <a href="/menu_list" class="btn btn-lg btn-primary">Menu List</a>
+
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

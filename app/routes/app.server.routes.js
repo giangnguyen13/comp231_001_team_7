@@ -5,6 +5,7 @@ const ProfileController = require('../controllers/profile.server.controller');
 const StaffController = require('../controllers/staff.server.controller');
 const ProductController = require('../controllers/product.server.controller');
 const MenuListController = require('../controllers/menu_list.server.controller');
+const OrderController = require('../controllers/order.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {
@@ -56,4 +57,16 @@ module.exports = function (app) {
         .post(LoginController.sendVerification);
 
     app.route('/new_password').post(LoginController.changePassword);
+
+    //Order
+    app.route('/createOrder').post(OrderController.createOrder);
+    app.route('/cart').get(OrderController.readCart);
+    app.route('/cart/:orderId')
+        .get(OrderController.readCart)
+        .put(OrderController.updateById)
+        .delete(OrderController.deleteById);
+
+    //Checkout
+    app.route('/checkout').get(OrderController.readCheckout);
+    app.route('/pay').get(OrderController.pay);
 };

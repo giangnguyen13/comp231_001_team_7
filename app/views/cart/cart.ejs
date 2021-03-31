@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<%- include('../partials/head'); %>
+</head>
+<body>
+    <div class="container pt-4">
+        <h2 class="text-center pb-4">This is cart page</h2>
+    <table align="center">
+        <tr>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Title:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Content:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Price:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Quantity:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Update/Delete the Item </label>
+                </div>
+            </td>
+        </tr>
+
+        <% order.forEach(function(order){ %>
+
+            <form method="post" action="/cart/<%= order._id %>?_method=PUT">
+                <tr>
+                    <td>
+                        <div>
+                            <%= order.title %>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <%= order.content %>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <%= order.price %>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="number" class="form-control" name="quantity" value="<%= order.quantity %>" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="submit" class="btn btn-sm btn-success" value="Update Item" style="width: 200px" />
+                        </div>
+            </form>
+                        <div>
+                            <form method="post" action="/cart/<%= order._id %>?_method=DELETE">
+                                <input type="submit" class="btn btn-sm btn-danger" value="Delete Item" style="width: 200px" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+            <% })%>
+    </table>
+    <div class="text-center pt-4">
+        <a href="/menu_list" class="btn btn-lg btn-primary">Menu List</a>
+        <a href="/checkout" class="btn btn-lg btn-primary">Checkout</a>
+    </div>
+    <div class="text-center pt-4">
+        <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
+    </div>
+</body>
+
+</html>

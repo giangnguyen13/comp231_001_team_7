@@ -18,5 +18,10 @@ var ProductSchema = new Schema({
         default: Date.now,
     },
 });
+// Set the 'productImagePath' virtual property
+ProductSchema.virtual('productImagePath').get((img) => {
+    return `/img/products-img/${img}`;
+});
+
 // Create the 'Product' model out of the 'ProductSchema'
 module.exports = mongoose.model('Product', ProductSchema);

@@ -6,7 +6,7 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, callback) {
         //callback(null, file.fieldname + '-' + Date.now()+"");
-        callback(null, file.fieldname + '-' + Date.now() + '.jpg');
+        callback(null, 'product-img' + '-' + Date.now() + '.jpg');
     },
 });
 // Load the 'Product' Mongoose model
@@ -20,7 +20,8 @@ exports.renderAdd = function (req, res) {
 
 // Create a new 'createProduct' controller method
 exports.createProduct = function (req, res, next) {
-    let upload = multer({ storage: storage }).single('product_img');
+    let upload = multer({ storage: storage }).single('productImage');
+    var filename = '';
     upload(req, res, function (err) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
@@ -32,26 +33,24 @@ exports.createProduct = function (req, res, next) {
         } else if (err) {
             return res.send(err);
         }
+        filename = req.file.filename;
 
-        // Display uploaded image for user validation
-        res.send(
-            `You have uploaded this image: <hr/><img src="/img/products-img/${req.file.filename}" width="500"><hr /><a href="./">Upload another image</a>`
-        );
+        // Create a new instance of the 'Product' Mongoose model
+        var product = new Product(req.body);
+        product.productImage = filename;
+        // Use the 'Product' instance's 'save' method to save a new product document
+        product.save(function (err) {
+            if (err) {
+                // Call the next middleware with an error message
+                return next(err);
+            } else {
+                // Use the 'response' object to send a JSON response
+                //res.json(product);
+                console.log(product);
+                res.redirect('/list_products'); //display all product
+            }
+        });
     });
-    // // Create a new instance of the 'Product' Mongoose model
-    // var product = new Product(req.body);
-    // // Use the 'Product' instance's 'save' method to save a new product document
-    // product.save(function (err) {
-    //     if (err) {
-    //         // Call the next middleware with an error message
-    //         return next(err);
-    //     } else {
-    //         // Use the 'response' object to send a JSON response
-    //         //res.json(product);
-    //         console.log(product);
-    //         res.redirect('/list_products'); //display all product
-    //     }
-    // });
 };
 
 // Create a new 'readProduct' controller method
@@ -70,6 +69,7 @@ exports.readProduct = function (req, res, next) {
                 pageTitle: 'Products',
                 product: products,
             });
+            // res.json(products);
         }
     });
 };

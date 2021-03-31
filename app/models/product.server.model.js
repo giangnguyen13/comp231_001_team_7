@@ -8,6 +8,7 @@ var ProductSchema = new Schema({
     title: String,
     content: String,
     price: Number,
+    productImage: String,
     created: {
         type: Date,
         default: Date.now,

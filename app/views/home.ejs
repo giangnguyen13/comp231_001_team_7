@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include('./partials/head'); %>
-    </head>
-    <body>
-        <%- include('./partials/navbar-auth'); %>
-        <main class="container">
-            <div class="starter-template text-center py-5 px-3">
-                <h1>Hello <%= customerName %>, you are logged in</h1>
-                <a href="/list_products" class="btn btn-lg btn-primary">List Products for admin</a>
-                <a href="/menu_list" class="btn btn-lg btn-primary">Menu List for customer</a>
+
+<head>
+    <%- include('./partials/head'); %>
+</head>
+
+<body class="homebody">
+    <%- include('./partials/navbar-auth'); %>
+    <div class="custom-alert">
+        <h1>Hello <%= customerName %>, you are logged in</h1>
+    </div>
+    <main class="container">
+        <div class="starter-template text-center py-5 px-3">
+            <button class="btn">ORDER NOW</button>
+            <div class="sub-text">
+                <h2>Brew4You Coffee</h2>
+                <h1>We Brew Specialty Coffee</h1>
             </div>
-        </main>
-    </body>
+            <div class="intro">
+                <h6>Our love for specialty coffee is never-ending. With over 365 days a year at origin working with the
+                    best growers on the planet, only the best beans make the grade. Countless hours cupping and testing
+                    our blends means consistently amazing coffee, so your morning starts right every time.</h6>
+            </div>
+        </div>
+        <h4 style="text-align:center;">Featured Menu</h4>
+        <div class="featured">
+            <img src="/img/flat_white.png">
+            <img src="/img/iced_americano.png">
+            <img src="/img/iced_latte.png">
+        </div>
+    </main>
+    <script>
+        // just to make sure this is working
+        hello('this is a param');
+    </script>
+</body>
+
 </html>

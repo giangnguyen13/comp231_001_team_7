@@ -18,4 +18,4 @@ var ProductSchema = new Schema({
     },
 });
 // Create the 'Product' model out of the 'ProductSchema'
-mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Product', ProductSchema);

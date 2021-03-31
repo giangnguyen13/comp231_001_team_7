@@ -30,7 +30,6 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: req.body.stage,
             temporaryId: req.cookies.tempoId,
         });
     } else {
@@ -39,7 +38,6 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: req.body.stage,
             user: payload.id,
         });
     }

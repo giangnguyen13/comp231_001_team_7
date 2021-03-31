@@ -8,7 +8,6 @@ var OrderSchema = new Schema({
     content: String,
     price: Number,
     quantity: Number,
-    stage: String,
     temporaryId: Number,
     created: {
         type: Date,

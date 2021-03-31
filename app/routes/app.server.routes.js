@@ -26,6 +26,9 @@ module.exports = function (app) {
         .get(LoginController.verifyUser, ProfileController.renderChangePassword)
         .post(LoginController.verifyUser, ProfileController.changePassword);
 
+    app.get('/checkout', HomeController.checkout);
+    //app.get('/orderhistory', HomeController.orderhistory);
+
     // routes related to staff requirements:
     app.get('/staff/login', StaffController.renderSignin);
     app.post(

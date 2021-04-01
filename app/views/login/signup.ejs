@@ -3,11 +3,11 @@
     <head>
         <%- include('../partials/head'); %>
     </head>
-    <body>
+    <body class="signbody">
         <%- include('../partials/navbar'); %>
         <main class="container">
             <div class="starter-template text-center py-5 px-3">
-                <h1>Customer Sign Up</h1>
+                <h1 class="singup-title">Customer Sign Up</h1>
                 <p class="lead">New here? Please create an account</p>
                 <br /><br />
                 <form action="/signup" method="POST">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn bt-signup">
                         Submit
                     </button>
                 </form>

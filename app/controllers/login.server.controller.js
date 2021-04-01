@@ -140,7 +140,6 @@ exports.authenticate = function (req, res, next) {
                 res.cookie('token', token, {
                     maxAge: jwtExpirySeconds * 1000,
                     httpOnly: true,
-                    uid: user._id,
                 });
                 next();
             } else {

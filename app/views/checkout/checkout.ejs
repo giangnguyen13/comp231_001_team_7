@@ -16,24 +16,19 @@
             <div id="border">
                 <h4>Items:</h4>
                 <table class="table" style="margin-left: 50px; margin-right: 50px; width: 90%;">
-                    <tr>
-                        <td>1 * Americano</td>
-                        <td colspan="2"> $ 3.45</td>
-                        <td><a href="#"><i class="material-icons" id="removeItem">delete_outline</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3 * Caffe Latte</td>
-                        <td colspan="2"> $ 13.35</td>
-                        <td><a href="#"><i class="material-icons" id="removeItem">delete_outline</i></a>
-                        </td>
-                    </tr>
+                    <% order.forEach(function(order){ %>
+                        <tr>
+                            <td><%= order.quantity %> * <%= order.title %></td>
+                            <td colspan="2"> $ <%= order.price %></td>
+                            </td>
+                        </tr>
+                    <% })%>
                 </table>
             </div>
             <div class="text-center py-2">
                 <a class="btn btn-primary" id="btnCheckoutPg" href="/menu_list">+ Add Items</a>
             </div><br>
-            <form method="post" action="">
+            <form method="post" action="/pay">
                 <!--Form starts here!! clicking on the -->
                 <div id="border">
                     <h4>Address:</h4>
@@ -214,19 +209,19 @@
                                 <td>
                                     <label>Subtotal</label>
                                 </td>
-                                <td style="text-align: right;"><%= subTotal %></td>
+                                <td style="text-align: right;">$ <%= subTotal %></td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Delivery Fee</label>
                                 </td>
-                                <td style="text-align: right;">$ 4.99</td>
+                                <td style="text-align: right;">$ <%= delivery %></td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Tax</label>
                                 </td>
-                                <td style="text-align: right;"><%=  tax %></td>
+                                <td style="text-align: right;">$ <%=  tax %></td>
                             </tr>
                         </table>
                         <hr style="height: 4px; color: #b35900;">
@@ -235,7 +230,7 @@
                                 <td>
                                     <label>Total</label>
                                 </td>
-                                <td style="text-align: right;"><%=  totalSum %></td>
+                                <td style="text-align: right;">$ <%= totalSum %></td>
                             </tr>
                         </table>
                         <hr style="height: 4px; color: #b35900;">

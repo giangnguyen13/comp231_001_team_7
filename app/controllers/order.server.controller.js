@@ -180,14 +180,16 @@ exports.readCheckout = function (req, res, next) {
                     subTotal += orders[i].quantity * orders[i].price;
                 }
                 var tax = subTotal * 1.13 - subTotal;
-                var totalSum = subTotal * 1.13;
+                var delivery = 3;
+                var totalSum = subTotal * 1.13 + delivery;
                 //
-
                 res.render('checkout/checkout', {
                     pageTitle: 'Checkout',
-                    subTotal: subTotal,
-                    totalSum: totalSum,
-                    tax: tax,
+                    order: orders,
+                    subTotal: subTotal.toFixed(2),
+                    totalSum: totalSum.toFixed(2),
+                    tax: tax.toFixed(2),
+                    delivery: delivery.toFixed(2),
                     isAuthenticate: isAuthenticate,
                 });
             }

@@ -68,5 +68,5 @@ module.exports = function (app) {
 
     //Checkout
     app.route('/checkout').get(OrderController.readCheckout);
-    app.route('/pay').get(OrderController.pay);
+    app.route('/pay').post(OrderController.pay);
 };

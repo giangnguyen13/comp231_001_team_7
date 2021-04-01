@@ -58,7 +58,7 @@
                     </td>
                     <td>
                         <div>
-                            <input type="number" class="form-control" name="quantity" value="<%= order.quantity %>" />
+                            <input type="number" class="form-control" min="1" value="1" oninput="validity.valid||(value='');" name="quantity" value="<%= order.quantity %>" />
                         </div>
                     </td>
                     <td>

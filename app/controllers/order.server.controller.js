@@ -170,7 +170,6 @@ exports.readCheckout = function (req, res, next) {
                 : { temporaryId: req.cookies.tempoId, stage: cart };
 
         Order.find(query, function (err, orders) {
-            //console.log(order)
             if (err) {
                 // Call the next middleware with an error message
                 console.log('some error in readOrder method');
@@ -183,9 +182,6 @@ exports.readCheckout = function (req, res, next) {
                 var tax = subTotal * 1.13 - subTotal;
                 var totalSum = subTotal * 1.13;
                 //
-                console.log(subTotal);
-                console.log(totalSum);
-                console.log(tax);
 
                 res.render('checkout/checkout', {
                     pageTitle: 'Checkout',

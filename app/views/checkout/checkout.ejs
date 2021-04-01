@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+
+    <div class="coverImg">
+        <%- include('../partials/navbar'); %>
+    </div>
+    <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Checkout Page</h2>
+    <main class="container" id="containerId">
+        <div class="starter-template py-5 px-5 ">
+            <div id="border">
+                <h4>Items:</h4>
+                <table class="table" style="margin-left: 50px; margin-right: 50px; width: 90%;">
+                    <% order.forEach(function(order){ %>
+                        <tr>
+                            <td><%= order.quantity %> * <%= order.title %></td>
+                            <td colspan="2"> $ <%= order.price %></td>
+                            </td>
+                        </tr>
+                    <% })%>
+                </table>
+            </div>
+            <div class="text-center py-2">
+                <a class="btn btn-primary" id="btnCheckoutPg" href="/menu_list">+ Add Items</a>
+            </div><br>
+            <form method="post" action="/pay">
+                <!--Form starts here!! clicking on the -->
+                <div id="border">
+                    <h4>Address:</h4>
+                    <div>
+                        <table style="width: 100%;">
+                            <tbody>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="streetAddress"><span class="required">*</span>Street Address:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="streetAddress" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="aptNumber">Suite/Apt#:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="aptNumber">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="city"><span class="required">*</span>City:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="city" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="province"><span class="required">*</span>Province:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-11">
+                                            <select name="province" id="province" class="form-control" >
+                                                <option value="" selected disabled>-- Please Select a Province --</option>
+                                                <option value="British Columbia">British Columbia</option>
+                                                <option value="Alberta">Alberta</option>
+                                                <option value="Saskatchewan">Saskatchewan</option>
+                                                <option value="Manitoba">Manitoba</option>
+                                                <option value="Ontario">Ontario</option>
+                                                <option value="Quebec">Quebec</option>
+                                                <option value="New Brunswick">New Brunswick</option>
+                                                <option value="Nova Scotia">Nova Scotia</option>
+                                                <option value="Prince Edward Island">Prince Edward Island</option>
+                                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                                                <option value="Yukon">Yukon</option>
+                                            </select>
+                                        </div> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="postalCode"><span class="required">*</span>Postal Code:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="postalCode" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldLabel">
+                                        <div>
+                                            <label for="phone"><span class="required">*</span>Phone Number:</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div  class="col-11">
+                                            <input type="text"  class="form-control" name="phone" required>
+                                        </div>    
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+                <div id="border">
+                    <h4>Delivery instructions:</h4>
+                    <div class="col-12" style="padding-left: 20px; padding-right: 20px;">
+                        <textarea rows="3" class="form-control" placeholder="Enter instructions here..."></textarea>
+                    </div>
+                </div><br>
+                <div id="border">
+                    <h4>Payment information:</h4>
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td class="fieldLabel">
+                                    <div>
+                                        <label for="cardHolder"><span class="required">*</span>Cardholder name:</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="cardHolder" required>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fieldLabel">
+                                    <div>
+                                        <label for="cardNumber"><span class="required">*</span>Card number:</label>
+                                    </div>    
+                                </td>
+                                <td>
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="cardNumber" required>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fieldLabel">
+                                    <div>
+                                        <label for="cardExpDate"><span class="required">*</span>Exp. Date:</label>
+                                    </div>    
+                                </td>
+                                <td>
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="cardExpDate" required>
+                                    </div>    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fieldLabel">
+                                    <div>
+                                        <label for="cardCVV"><span class="required">*</span>CVV:</label>
+                                    </div>    
+                                </td>
+                                <td>
+                                    <div class="col-11">
+                                        <input type="text" class="form-control" name="cardCVV" required>
+                                    </div>    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><br>
+
+                <!--maybe this section is only visible only to the loyalty customers??-->
+                <div style="padding-left: 15px; padding-right: 15px;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>
+                                <label><u>Redeem Loyalty Points</u></label>
+                            </td>
+                            <td style="text-align: right;">
+                                <label><u>25 Points</u></label>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="height: 4px; color: #b35900;">
+                </div>
+                <!---->
+
+                <div class="row justify-content-center">
+                    <div class="col-5 ">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <label>Subtotal</label>
+                                </td>
+                                <td style="text-align: right;">$ <%= subTotal %></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Delivery Fee</label>
+                                </td>
+                                <td style="text-align: right;">$ <%= delivery %></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Tax</label>
+                                </td>
+                                <td style="text-align: right;">$ <%=  tax %></td>
+                            </tr>
+                        </table>
+                        <hr style="height: 4px; color: #b35900;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <label>Total</label>
+                                </td>
+                                <td style="text-align: right;">$ <%= totalSum %></td>
+                            </tr>
+                        </table>
+                        <hr style="height: 4px; color: #b35900;">
+                        <div class="text-center">
+                            <button class="button btn-primary" id="btnCheckoutPg"
+                                style="width: 250px; height: 55px;">Confirm Purchase</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -28,14 +28,3 @@ exports.home = function (req, res) {
         }
     });
 };
-
-exports.checkout = function (req, res) {
-    const token = req.cookies.token;
-    if (!token) {
-        res.render('checkout/checkout', {
-            pageTitle: 'Brew4You',
-        });
-    } else {
-        res.redirect('/home');
-    }
-};

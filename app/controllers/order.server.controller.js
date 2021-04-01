@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const jwtKey = config.secretKey;
+const cart = 'Cart';
+const paid = 'Paid';
 
 // Create a new 'createOrder' controller method
 exports.createOrder = function (req, res, next) {
@@ -30,6 +32,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
+            stage: cart,
             temporaryId: req.cookies.tempoId,
         });
     } else {
@@ -38,6 +41,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
+            stage: cart,
             user: payload.id,
         });
     }
@@ -86,8 +90,8 @@ exports.readCart = function (req, res, next) {
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId }
-                : { temporaryId: req.cookies.tempoId };
+                ? { user: userId, stage: cart }
+                : { temporaryId: req.cookies.tempoId, stage: cart };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -99,7 +103,7 @@ exports.readCart = function (req, res, next) {
                 //
                 console.log(orders);
                 res.render('cart/cart', {
-                    pageTitle: 'Cart',
+                    pageTitle: cart,
                     order: orders,
                     isAuthenticate: isAuthenticate,
                 });
@@ -162,8 +166,8 @@ exports.readCheckout = function (req, res, next) {
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId }
-                : { temporaryId: req.cookies.tempoId };
+                ? { user: userId, stage: cart }
+                : { temporaryId: req.cookies.tempoId, stage: cart };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -212,13 +216,15 @@ exports.pay = function (req, res, next) {
             userId != null
                 ? { user: userId }
                 : { temporaryId: req.cookies.tempoId };
-        Order.remove(query, (err, order) => {
+
+        Order.find(query, function (err, orders) {
             if (err) {
-                console.log(err);
-                // Call the next middleware with an error message
                 return next(err);
             } else {
-                console.log(order);
+                for (let i = 0; i < orders.length; i++) {
+                    orders[i].stage = paid;
+                    orders[i].save();
+                }
 
                 res.render('thank_you/thank_you', {
                     pageTitle: 'Thank You',

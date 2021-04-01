@@ -78,7 +78,9 @@
     </table>
     <div class="text-center pt-4">
         <a href="/menu_list" class="btn btn-lg btn-primary">Menu List</a>
-        <a href="/checkout" class="btn btn-lg btn-primary">Checkout</a>
+        <% if(order[0] != null) {%>
+            <a href="/checkout" class="btn btn-lg btn-primary">Checkout</a>
+        <% } %>
     </div>
     <div class="text-center pt-4">
         <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>

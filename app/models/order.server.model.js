@@ -11,6 +11,7 @@ var OrderSchema = new Schema({
     temporaryId: Number,
     stage: String,
     status: String,
+    trackingNumber: String,
     created: {
         type: Date,
         default: Date.now,

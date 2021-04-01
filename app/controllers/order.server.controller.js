@@ -8,7 +8,7 @@ const config = require('../../config/config');
 const jwtKey = config.secretKey;
 const cart = 'Cart';
 const paid = 'Paid';
-
+const ordered = 'Ordered';
 // Create a new 'createOrder' controller method
 exports.createOrder = function (req, res, next) {
     // if user is authenticate, do something special
@@ -219,6 +219,8 @@ exports.pay = function (req, res, next) {
             } else {
                 for (let i = 0; i < orders.length; i++) {
                     orders[i].stage = paid;
+                    orders[i].status = ordered;
+                    //orders[i].trackingNumber = randomNumber;
                     orders[i].save();
                 }
 

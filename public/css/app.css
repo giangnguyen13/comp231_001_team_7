@@ -145,12 +145,13 @@ body {
         background-size: 100%;
     }
     .alert {
-        margin-top: -20px;
+        margin-top: -20ex;
         text-align: right;
         color: #ffffff;
     }
+
     button.btn {
-        margin-top: 250px;
+        margin-top: 28ex;
         font-size: 20px;
         font-weight: bold;
         background-color: #b35900;
@@ -159,18 +160,18 @@ body {
     }
 
     .sub-text {
-        margin-top: 130px;
+        margin-top: 16ex;
         color: #ac7339;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .sub-text h1 {
-        margin-top: 20px;
+        margin-top: 2ex;
         color: #030303;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .intro {
-        margin-left: 150px;
-        margin-right: 150px;
+        margin-left: 20ex;
+        margin-right: 20ex;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .featured {
@@ -184,13 +185,35 @@ body {
         flex-direction: row;
     }
 
+    .navbar {
+        background-color: #442403ab !important;
+    }
+
     .navbar-nav > li{
-            margin-left:30px;
-            margin-right:30px;
+        margin-left:30px;
+        margin-right:30px;
+    }
+
+    .nav-link {
+        color: #ffffff !important;
+        font-size: 18px;
+    }
+
+    .navbar-bg {
+        background-color: #4b3033;
     }
 
     .login-title {
-            margin-top: 150px;
+        margin-top: 8ex;
+    }
+
+    .bt-login {
+        margin-top: 28ex;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #b35900;
+        border-radius: 10px;
+        color: #ffffff;
     }
 
 }

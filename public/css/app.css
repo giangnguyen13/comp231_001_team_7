@@ -142,16 +142,22 @@ body {
     .homebody {
         background-image: url('/img/cover.jpg');
         background-repeat: no-repeat;
-        background-size: 100%;
-    }
+        background-size: 100%; 
+    } 
+
+    .signbody {
+        background-image: url('/img/bg.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%; 
+    } 
+
     .alert {
-        margin-top: -20ex;
+        margin-top: 1rem;
         text-align: right;
         color: #ffffff;
     }
 
     button.btn {
-        margin-top: 28ex;
         font-size: 20px;
         font-weight: bold;
         background-color: #b35900;
@@ -159,30 +165,42 @@ body {
         color: #ffffff;
     }
 
+    .bt-menu {
+        margin-top: 25vw;
+    }
+
     .sub-text {
-        margin-top: 16ex;
+        margin-top: 12vw;
         color: #ac7339;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .sub-text h1 {
-        margin-top: 2ex;
+        margin-top: 2rem;
         color: #030303;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .intro {
-        margin-left: 20ex;
-        margin-right: 20ex;
+        margin-left: 10rem;
+        margin-right: 10rem;
         font-family:Georgia, 'Times New Roman', Times, serif;
     }
     .featured {
-        margin-top: 4%;
-        margin-bottom: 20%;
+        margin-top: 4rem;
+        margin-bottom: 10rem;
+        text-align:center;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; 
     }
     .featured img {
-        width: 24%;
+        width: 20%;
         flex-direction: row;
+    }
+
+    @media (min-width: 768px) {
+    .featured img {
+        width: 80%;
+        flex-direction: row;
+    }
     }
 
     .navbar {
@@ -203,17 +221,22 @@ body {
         background-color: #4b3033;
     }
 
-    .login-title {
-        margin-top: 8ex;
+    .login-title, .singup-title {
+        margin-top: 18vw; 
     }
 
-    .bt-login {
-        margin-top: 28ex;
+    .lead {
+        margin-top: 4w;        
+    }
+
+    .bt-login, .bt-signup {
+        margin-top: 4vw;
         font-size: 20px;
         font-weight: bold;
         background-color: #b35900;
         border-radius: 10px;
         color: #ffffff;
     }
+
 
 }

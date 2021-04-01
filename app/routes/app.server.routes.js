@@ -6,6 +6,7 @@ const StaffController = require('../controllers/staff.server.controller');
 const ProductController = require('../controllers/product.server.controller');
 const MenuListController = require('../controllers/menu_list.server.controller');
 const OrderController = require('../controllers/order.server.controller');
+const ReviewController = require('../controllers/review.server.controller');
 
 // Define the routes module' method
 module.exports = function (app) {
@@ -18,6 +19,7 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
+    app.get('/review', ReviewController.review);
 
     app.route('/profile/edit')
         .get(LoginController.verifyUser, ProfileController.renderEditProfile)

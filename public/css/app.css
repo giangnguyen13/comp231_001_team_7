@@ -148,7 +148,7 @@ body {
         background-size: 100%; 
     } 
 
-    .signbody {
+    .signbody, .reviewbody {
         background-image: url('/img/bg.jpg');
         background-repeat: no-repeat;
         background-size: 100%; 
@@ -234,7 +234,7 @@ body {
         background-color: #4b3033;
     }
 
-    .login-title, .singup-title {
+    .login-title, .singup-title, .review-title {
         margin-top: 18vw; 
     }
 
@@ -242,7 +242,7 @@ body {
         margin-top: 4w;        
     }
 
-    .bt-login, .bt-signup {
+    .bt-login, .bt-signup, .bt-review {
         margin-top: 4vw;
         font-size: 20px;
         font-weight: bold;
@@ -305,4 +305,69 @@ body {
 
 #removeItem:hover {
     color: red;
+}
+
+/* rating  */
+.txt-center {
+    text-align: left;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 100%;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: left;
+    position: relative;
+    align-content: center;
+}
+
+.rating > label {
+	display: inline;
+	text-align: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+    font-size: 40px;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
+
+.comment > label {
+    margin-left: 20%;
+    font-size: 18px;
+    font-weight: bold;
+} 
+
+.comment > input {
+    margin-left: 20%;
+    border-radius: 0.8rem;
+}
+
+.submit {
+    text-align: center;
 }

@@ -214,8 +214,8 @@ exports.pay = function (req, res, next) {
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId }
-                : { temporaryId: req.cookies.tempoId };
+                ? { user: userId, stage: cart }
+                : { temporaryId: req.cookies.tempoId, stage: cart };
 
         Order.find(query, function (err, orders) {
             if (err) {

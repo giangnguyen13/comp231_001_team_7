@@ -229,7 +229,7 @@ exports.pay = function (req, res, next) {
             } else {
                 for (let i = 0; i < orders.length; i++) {
                     orders[i].stage = constant.ORDER_STAGE_PAID;
-                    orders[i].status = constant.ORDER_STAGE_ORDERED;
+                    orders[i].status = constant.ORDER_STATUS_ORDERED;
                     orders[i].trackingNumber = trackingID;
                     orders[i].save();
                 }
@@ -245,6 +245,45 @@ exports.pay = function (req, res, next) {
     }
 };
 
+exports.viewOrderByTrackingID = function (req, res) {
+    let orderId = req.query.orderid;
+    if (orderId) {
+        Order.find({ trackingNumber: orderId })
+            .sort({ created: 'desc' })
+            .exec(function (err, orders) {
+                if (err) {
+                    console.log(err);
+                    res.render('error/error-page', {
+                        pageTitle: '500',
+                        orders: {},
+                    });
+                } else if (orders.length > 0) {
+                    res.render('order/order_id_tracking', {
+                        pageTitle: `Order ${orderId}`,
+                        orders: orders,
+                    });
+                } else {
+                    res.render('error/error-page', {
+                        pageTitle: '404 Not found',
+                        errorCode: 404,
+                        errorMessage: 'Cannot find order',
+                    });
+                }
+            });
+    } else {
+        res.render('error/error-page', {
+            pageTitle: '404 Not found',
+            errorCode: 404,
+            errorMessage: 'Cannot find order',
+        });
+    }
+};
+
+exports.renderTrackOrderView = function (req, res) {
+    res.render('order/order_tracking', {
+        pageTitle: 'Track Order',
+    });
+};
 function makeTrackingNumber() {
     // auto generate 10 random character to stimulate tracking number
     var result = '';

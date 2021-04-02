@@ -1,3 +1,7 @@
+var constant = require('../../config/constant');
+
+// Load the 'Order' Mongoose model
+var Order = require('mongoose').model('Order');
 const User = require('mongoose').model('User');
 const bcrypt = require('bcrypt');
 
@@ -62,4 +66,53 @@ exports.changePassword = function (req, res) {
             res.json('password not match');
         }
     });
+};
+
+exports.viewOrderHistory = function (req, res) {
+    const query = {
+        user: req.body.userId,
+        stage: {
+            $in: [constant.ORDER_STAGE_PAID],
+        },
+    };
+    let orderId = req.query.orderid;
+    Order.find(query)
+        .sort({ created: 'desc' })
+        .exec(function (err, orders) {
+            if (err) {
+                console.log(err);
+                res.render('error/error-page', {
+                    pageTitle: '500',
+                    orders: {},
+                });
+            } else {
+                const trackingValues = [
+                    ...new Set(
+                        orders
+                            .map((order) => order.trackingNumber)
+                            .filter((value) => value != null)
+                    ),
+                ];
+
+                // if has order tracking number filter
+                console.log(trackingValues);
+                if (orderId) {
+                    res.render('order/order_history', {
+                        pageTitle: 'Order History',
+                        trackingValues: trackingValues,
+                        orders: orders.filter(
+                            (order) => order.trackingNumber == orderId
+                        ),
+                    });
+                } else {
+                    res.render('order/order_history', {
+                        pageTitle: 'Order History',
+                        trackingValues: trackingValues,
+                        orders: orders.filter(
+                            (order) => order.trackingNumber == trackingValues[0]
+                        ),
+                    });
+                }
+            }
+        });
 };

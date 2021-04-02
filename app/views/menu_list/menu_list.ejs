@@ -2,7 +2,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<%- include('../partials/head'); %>
+    <%- include('../partials/head'); %>
+    <!-- using jQuery cdn for Live Search -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
     <% if(isAuthenticate) {%>
@@ -12,37 +14,89 @@
     <% } %>
     <%- include('../partials/bg'); %>
     <div class="container pt-4">
-        <% product.forEach(function(product){ %>
 
-            <form method="post" action="/createOrder">
-                <input type="hidden" name="title" value="<%= product.title %>">
-                <input type="hidden" name="content" value="<%= product.content %>">
-                <input type="hidden" name="price" value="<%= product.price %>">
-                <% if (userId != null){ %>
-                <input type="hidden" name="user" value="<%= userId %>">
-                <% } %>
-                <input type="hidden" name="temporaryId" value="<%= Math.random() %>">
+        <form class="my-5 searchForm">
+            <div class="form-group">
+                <div class="input-group input-group-lg mb-3">
+                    <input class="form-control" id="inputText" name="searchResult" type="text" placeholder="search for a product" />
+                </div>
+            </div>
+        </form>
 
-                <div>
-                    <div>Id: <%= product.productId %> </div>
-                    <div>Title: <%= product.title %></div>
-                    <div>Content: <%= product.content %></div>
-                    <div>Price: <%= product.price %></div>
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="number" class="form-control" name="quantity" min="1" value="1" oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
-                        </div>
-                        <div class="col-4">
-                            <input type="submit" class="btn btn-sm btn-success" value="Add to cart" style="width: 200px" />
+        <div id="noResultsMessage" class="alert alert-danger text-center font-weight-bold"></div>
+
+        <div class="productsContainer">
+            <% product.forEach(function(product){ %>
+
+                <form method="post" action="/createOrder" class="productForm show">
+                    <input type="hidden" name="title" value="<%= product.title %>">
+                    <input type="hidden" name="content" value="<%= product.content %>">
+                    <input type="hidden" name="price" value="<%= product.price %>">
+                    <% if (userId != null){ %>
+                    <input type="hidden" name="user" value="<%= userId %>">
+                    <% } %>
+                    <input type="hidden" name="temporaryId" value="<%= Math.random() %>">
+
+                    <div>
+                        <div>Id: <%= product.productId %> </div>
+                        <div class="title">Title: <%= product.title %></div>
+                        <div class="content">Content: <%= product.content %></div>
+                        <div>Price: <%= product.price %></div>
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="number" class="form-control" name="quantity" min="1" value="1" oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
+                            </div>
+                            <div class="col-4">
+                                <input type="submit" class="btn btn-sm btn-success" value="Add to cart" style="width: 200px" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        <% })%>
+                </form>
+            <% })%>
+        </div>
     <div class="text-center pt-4">
         <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg btn-primary"> Main Page</a>
 
         <a href="/cart" class="btn btn-lg btn-primary"> Checkout</a>
     </div>
+
+
+    <script>
+        // jQuery Live Search for products //
+
+        $('#noResultsMessage').hide();
+
+        $('#inputText').on('keyup', function () {
+            var inputText = $(this).val(); 
+            var rowCount = $('.productForm').length; 
+            $('.productForm').each(function () {
+                rowCount++;
+                if (rowCount !== 0) {
+                    var title = $(this).find('.title').text(); 
+                    var content = $(this).find('.content').text(); 
+                    if (title.toLowerCase().indexOf(inputText.toLowerCase()) === -1 &&
+                        content.toLowerCase().indexOf(inputText.toLowerCase()) === -1 ) {
+                        $(this).removeClass('show');
+                        $(this).hide();
+                        rowCount--;
+                    } else {
+                        $(this).show();
+                        $(this).addClass('show');
+                    }
+                }
+            });
+
+            if ($('.show').length + 1 > 1) {
+                $('#noResultsMessage').hide();
+                $('.productsContainer').show();
+            } else {
+                $('#noResultsMessage')
+                    .show()
+                    .text('Sorry, we couldn\'t find any products related to "' + inputText + '"');
+                $('.productsContainer').hide();
+            }
+        });
+</script>
+
 </body>
 </html>

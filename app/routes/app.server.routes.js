@@ -42,6 +42,7 @@ module.exports = function (app) {
     app.route('/add_product').get(ProductController.renderAdd);
     app.route('/products').post(ProductController.createProduct);
     app.route('/list_products').get(ProductController.readProduct);
+    app.route('/change_img').post(ProductController.changeImage);
     app.route('/list_products/:productId')
         .get(ProductController.read)
         .put(ProductController.updateByProductId)

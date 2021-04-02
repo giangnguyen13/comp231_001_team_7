@@ -1,14 +1,13 @@
 // Load the 'Order' Mongoose model
 var Order = require('mongoose').model('Order');
 var Product = require('mongoose').model('Product');
+var constant = require('../../config/constant');
 
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const jwtKey = config.secretKey;
-const cart = 'Cart';
-const paid = 'Paid';
-const ordered = 'Ordered';
+
 // Create a new 'createOrder' controller method
 exports.createOrder = function (req, res, next) {
     // if user is authenticate, do something special
@@ -32,7 +31,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: cart,
+            stage: constant.ORDER_STAGE_CART,
             temporaryId: req.cookies.tempoId,
         });
     } else {
@@ -41,7 +40,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: cart,
+            stage: constant.ORDER_STAGE_CART,
             user: payload.id,
         });
     }
@@ -90,8 +89,11 @@ exports.readCart = function (req, res, next) {
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -103,7 +105,7 @@ exports.readCart = function (req, res, next) {
                 //
                 console.log(orders);
                 res.render('cart/cart', {
-                    pageTitle: cart,
+                    pageTitle: constant.ORDER_STAGE_CART,
                     order: orders,
                     isAuthenticate: isAuthenticate,
                 });
@@ -166,8 +168,11 @@ exports.readCheckout = function (req, res, next) {
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {
@@ -179,9 +184,9 @@ exports.readCheckout = function (req, res, next) {
                 for (let i = 0; i < orders.length; i++) {
                     subTotal += orders[i].quantity * orders[i].price;
                 }
-                var tax = subTotal * 1.13 - subTotal;
+                var tax = subTotal * constant.TAX_RATE - subTotal;
                 var delivery = 3;
-                var totalSum = subTotal * 1.13 + delivery;
+                var totalSum = subTotal * constant.TAX_RATE + delivery;
                 //
                 res.render('checkout/checkout', {
                     pageTitle: 'Checkout',
@@ -208,26 +213,30 @@ exports.pay = function (req, res, next) {
     }
 
     var userId = payload != null ? payload.id : null;
-
+    const trackingID = makeTrackingNumber();
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {
                 return next(err);
             } else {
                 for (let i = 0; i < orders.length; i++) {
-                    orders[i].stage = paid;
-                    orders[i].status = ordered;
-                    //orders[i].trackingNumber = randomNumber;
+                    orders[i].stage = constant.ORDER_STAGE_PAID;
+                    orders[i].status = constant.ORDER_STAGE_ORDERED;
+                    orders[i].trackingNumber = trackingID;
                     orders[i].save();
                 }
 
                 res.render('thank_you/thank_you', {
                     pageTitle: 'Thank You',
+                    trackingID: trackingID,
                 });
             }
         });
@@ -235,3 +244,17 @@ exports.pay = function (req, res, next) {
         res.redirect('/menu_list');
     }
 };
+
+function makeTrackingNumber() {
+    // auto generate 10 random character to stimulate tracking number
+    var result = '';
+    var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < constant.TRACKING_RAND_LENGTH; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    return result;
+}

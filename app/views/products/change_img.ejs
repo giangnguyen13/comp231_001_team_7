@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <%- include('../partials/navbar-auth'); %>
+    <h2 class="text-center">This page is for admin</h2>
+    <div class="container pt-4">
+        <div class="text-center p-4">
+            <h4>Preview/Change image</h4>
+            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img">
+        </div>
+        <form action="/change_img" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_id" value="<%= product._id%>">
+            <div class="col-12">
+                <div class="row p-2">
+                    <div class="col-5 text-right">
+                        <label style="font-weight: bold">Choose Product Image</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="file" class="form-control" accept="image/*" name="productImage" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="row p-2">
+                    <div class="col-5 text-right"></div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-lg btn-success" style="margin-top: 0px;">Save change</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4">
+                <a href="/home" class="btn btn-lg btn-primary">
+                    Main Page</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

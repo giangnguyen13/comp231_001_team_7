@@ -1,3 +1,14 @@
+// set up img storage
+const multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + '../../../public/img/products-img');
+    },
+    filename: function (req, file, callback) {
+        //callback(null, file.fieldname + '-' + Date.now()+"");
+        callback(null, 'product-img' + '-' + Date.now() + '.jpg');
+    },
+});
 // Load the 'Product' Mongoose model
 var Product = require('mongoose').model('Product');
 
@@ -9,19 +20,36 @@ exports.renderAdd = function (req, res) {
 
 // Create a new 'createProduct' controller method
 exports.createProduct = function (req, res, next) {
-    // Create a new instance of the 'Product' Mongoose model
-    var product = new Product(req.body);
-    // Use the 'Product' instance's 'save' method to save a new product document
-    product.save(function (err) {
-        if (err) {
-            // Call the next middleware with an error message
-            return next(err);
-        } else {
-            // Use the 'response' object to send a JSON response
-            //res.json(product);
-            console.log(product);
-            res.redirect('/list_products'); //display all product
+    let upload = multer({ storage: storage }).single('productImage');
+    var filename = '';
+    upload(req, res, function (err) {
+        // req.file contains information of uploaded file
+        // req.body contains information of text fields, if there were any
+
+        if (!req.file) {
+            return res.send('Please select an image to upload');
+        } else if (err instanceof multer.MulterError) {
+            return res.send(err);
+        } else if (err) {
+            return res.send(err);
         }
+        filename = req.file.filename;
+
+        // Create a new instance of the 'Product' Mongoose model
+        var product = new Product(req.body);
+        product.productImage = filename;
+        // Use the 'Product' instance's 'save' method to save a new product document
+        product.save(function (err) {
+            if (err) {
+                // Call the next middleware with an error message
+                return next(err);
+            } else {
+                // Use the 'response' object to send a JSON response
+                //res.json(product);
+                console.log(product);
+                res.redirect('/list_products'); //display all product
+            }
+        });
     });
 };
 
@@ -41,6 +69,7 @@ exports.readProduct = function (req, res, next) {
                 pageTitle: 'Products',
                 product: products,
             });
+            // res.json(products);
         }
     });
 };
@@ -48,8 +77,45 @@ exports.readProduct = function (req, res, next) {
 // 'read' controller method to display a product
 exports.read = function (req, res) {
     // Use the 'response' object to send a JSON response
-    res.json(req.product);
+    res.render('products/change_img', {
+        pageTitle: 'aws',
+        product: req.product,
+    });
 };
+
+exports.changeImage = function (req, res) {
+    let upload = multer({ storage: storage }).single('productImage');
+    var filename = '';
+    upload(req, res, function (err) {
+        // req.file contains information of uploaded file
+        // req.body contains information of text fields, if there were any
+
+        if (!req.file) {
+            return res.send('Please select an image to upload');
+        } else if (err instanceof multer.MulterError) {
+            return res.send(err);
+        } else if (err) {
+            return res.send(err);
+        }
+        filename = req.file.filename;
+        Product.findOneAndUpdate(
+            { _id: req.body._id },
+            { productImage: filename },
+            (err, product) => {
+                if (err) {
+                    console.log(err);
+                    // Call the next middleware with an error message
+                    return res.json(err);
+                } else {
+                    console.log(product);
+                    // Use the 'response' object to send a JSON response
+                    res.redirect('/list_products'); //display all products
+                }
+            }
+        );
+    });
+};
+
 //
 //update a product by product id
 exports.updateByProductId = function (req, res, next) {

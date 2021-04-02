@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <%- include('./partials/head'); %>
 </head>
-
 <body class="homebody">
     <%- include('./partials/navbar'); %>
     <main class="container">
         <div class="starter-template text-center py-5 px-3">
-            <button class="btn" onclick="window.location.href='/menu_list'">ORDER NOW</button>
+            <button class="btn bt-menu" onclick="window.location.href='/menu_list'">ORDER NOW</button>
             <div class="sub-text">
                 <h2>Brew4You Coffee</h2>
                 <h1>We Brew Specialty Coffee</h1>
@@ -22,9 +20,9 @@
         </div>
         <h4 style="text-align:center;">Featured Menu</h4>
         <div class="featured">
-            <img src="/img/flat_white.png">
-            <img src="/img/iced_americano.png">
-            <img src="/img/iced_latte.png">
+            <a href="/menu_list"><img src="/img/flat_white.png"></a>
+            <a href="/menu_list"><img src="/img/iced_americano.png"></a>
+            <a href="/menu_list"><img src="/img/iced_latte.png"></a>
         </div>
     </main>
     <script>

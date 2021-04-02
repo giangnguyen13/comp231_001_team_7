@@ -11,11 +11,18 @@
         <%- include('../partials/navbar'); %>
     <% } %>
     <%- include('../partials/bg'); %>
-    <h2 class="text-center">This page is for customer</h2>
     <div class="container pt-4">
         <% product.forEach(function(product){ %>
 
-            <form method="post" action="">
+            <form method="post" action="/createOrder">
+                <input type="hidden" name="title" value="<%= product.title %>">
+                <input type="hidden" name="content" value="<%= product.content %>">
+                <input type="hidden" name="price" value="<%= product.price %>">
+                <% if (userId != null){ %>
+                <input type="hidden" name="user" value="<%= userId %>">
+                <% } %>
+                <input type="hidden" name="temporaryId" value="<%= Math.random() %>">
+
                 <div>
                     <div>Id: <%= product.productId %> </div>
                     <div>Title: <%= product.title %></div>
@@ -23,7 +30,7 @@
                     <div>Price: <%= product.price %></div>
                     <div class="row">
                         <div class="col-4">
-                            <input type="number" class="form-control" min=0 oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
+                            <input type="number" class="form-control" name="quantity" min="1" value="1" oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
                         </div>
                         <div class="col-4">
                             <input type="submit" class="btn btn-sm btn-success" value="Add to cart" style="width: 200px" />
@@ -34,6 +41,8 @@
         <% })%>
     <div class="text-center pt-4">
         <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg btn-primary"> Main Page</a>
+
+        <a href="/cart" class="btn btn-lg btn-primary"> Checkout</a>
     </div>
 </body>
 </html>

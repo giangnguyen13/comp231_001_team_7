@@ -145,6 +145,17 @@ body {
     .homebody {
         background-image: url('/img/cover.jpg');
         background-repeat: no-repeat;
+        background-size: 100%; 
+    } 
+
+    .signbody {
+        background-image: url('/img/bg.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%; 
+    } 
+
+    .alert {
+        margin-top: 1rem;
         background-size: 100%;
     }
 
@@ -155,7 +166,6 @@ body {
     }
 
     button.btn {
-        margin-top: 250px;
         font-size: 20px;
         font-weight: bold;
         background-color: #b35900;
@@ -163,45 +173,83 @@ body {
         color: #ffffff;
     }
 
+    .bt-menu {
+        margin-top: 25vw;
+    }
+
     .sub-text {
-        margin-top: 130px;
+        margin-top: 12vw;
         color: #ac7339;
         font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .sub-text h1 {
-        margin-top: 20px;
+        margin-top: 2rem;
         color: #030303;
         font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .intro {
-        margin-left: 150px;
-        margin-right: 150px;
-        font-family: Georgia, 'Times New Roman', Times, serif;
+
+        margin-left: 10rem;
+        margin-right: 10rem;
+        font-family:Georgia, 'Times New Roman', Times, serif;
     }
 
     .featured {
-        margin-top: 4%;
-        margin-bottom: 20%;
+        margin-top: 4rem;
+        margin-bottom: 10rem;
+        text-align:center;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; 
     }
 
     .featured img {
-        width: 24%;
+        width: 20%;
         flex-direction: row;
     }
 
-    .navbar-nav>li {
-        margin-left: 30px;
-        margin-right: 30px;
+    @media (min-width: 768px) {
+    .featured img {
+        width: 80%;
+        flex-direction: row;
+    }
     }
 
-    .login-title {
-        margin-top: 150px;
+    .navbar {
+        background-color: #442403ab !important;
     }
-}
+
+    .navbar-nav > li{
+        margin-left:30px;
+        margin-right:30px;
+    }
+
+    .nav-link {
+        color: #ffffff !important;
+        font-size: 18px;
+   }
+
+    .navbar-bg {
+        background-color: #4b3033;
+    }
+
+    .login-title, .singup-title {
+        margin-top: 18vw; 
+    }
+
+    .lead {
+        margin-top: 4w;        
+    }
+
+    .bt-login, .bt-signup {
+        margin-top: 4vw;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #b35900;
+        border-radius: 10px;
+        color: #ffffff;
+    }
 
 .required {
     color: red;

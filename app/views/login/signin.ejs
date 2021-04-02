@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <%- include('../partials/head'); %>
-</head>
-
-<body>
-    <%- include('../partials/navbar'); %>
-    <main class="container">
-        <div class="starter-template text-center py-5 px-3">
-            <h1>Login Page</h1>
-            <p class="lead">You are not logged in. Please sign in</p>
-            <form action="/login" method="POST">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body class="signbody">
+        <%- include('../partials/navbar'); %>
+        <main class="container">  
+            <div class="starter-template text-center py-5 px-0">
+                <h1 class="login-title">Login Page</h1>
+                <p class="lead">You are not logged in. Please sign in</p>
+                <br />
+                <form action="/login" method="POST">
                 <div class="row g-3 justify-content-center">
                     <div class="col-2">
                         <label for="email" class="col-form-label">Email</label>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <br />
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn mt-5 bt-login">
                     Submit
                 </button>
             </form>
@@ -38,5 +38,4 @@
         </div>
     </main>
 </body>
-
 </html>

@@ -9,8 +9,11 @@ const cors = require('cors');
 // Create a new Mongoose connection instance
 const db = configureMongoose();
 
+const cookieParser = require('cookie-parser');
+
 // Create a new Express application instance
 const app = configureExpress();
+app.use(cookieParser());
 
 //app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 

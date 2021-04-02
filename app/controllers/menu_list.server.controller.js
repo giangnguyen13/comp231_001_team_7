@@ -1,3 +1,7 @@
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
+const jwtKey = config.secretKey;
+
 var Product = require('mongoose').model('Product');
 
 exports.index = function (req, res) {
@@ -12,8 +16,16 @@ exports.index = function (req, res) {
 };
 
 exports.readMenuList = function (req, res, next) {
-    console.log('in menuList');
-    // Use the 'Product' static 'find' method to retrieve the list of items
+    // if user is authenticate, do something special
+    const isAuthenticate = req.cookies.token != undefined;
+    var payload = null;
+    try {
+        payload = jwt.verify(req.cookies.token, jwtKey);
+    } catch (e) {
+        console.log('Not logged in');
+    }
+
+    //Use the 'Product' static 'find' method to retrieve the list of items
     Product.find({}, function (err, products) {
         //console.log(product)
         if (err) {
@@ -24,6 +36,8 @@ exports.readMenuList = function (req, res, next) {
             //
             res.render('menu_list/menu_list', {
                 pageTitle: 'Menu List',
+                isAuthenticate: isAuthenticate,
+                userId: payload != null ? payload.id : null,
                 product: products,
             });
         }

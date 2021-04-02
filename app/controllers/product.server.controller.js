@@ -77,8 +77,45 @@ exports.readProduct = function (req, res, next) {
 // 'read' controller method to display a product
 exports.read = function (req, res) {
     // Use the 'response' object to send a JSON response
-    res.json(req.product);
+    res.render('products/change_img', {
+        pageTitle: 'aws',
+        product: req.product,
+    });
 };
+
+exports.changeImage = function (req, res) {
+    let upload = multer({ storage: storage }).single('productImage');
+    var filename = '';
+    upload(req, res, function (err) {
+        // req.file contains information of uploaded file
+        // req.body contains information of text fields, if there were any
+
+        if (!req.file) {
+            return res.send('Please select an image to upload');
+        } else if (err instanceof multer.MulterError) {
+            return res.send(err);
+        } else if (err) {
+            return res.send(err);
+        }
+        filename = req.file.filename;
+        Product.findOneAndUpdate(
+            { _id: req.body._id },
+            { productImage: filename },
+            (err, product) => {
+                if (err) {
+                    console.log(err);
+                    // Call the next middleware with an error message
+                    return res.json(err);
+                } else {
+                    console.log(product);
+                    // Use the 'response' object to send a JSON response
+                    res.redirect('/list_products'); //display all products
+                }
+            }
+        );
+    });
+};
+
 //
 //update a product by product id
 exports.updateByProductId = function (req, res, next) {

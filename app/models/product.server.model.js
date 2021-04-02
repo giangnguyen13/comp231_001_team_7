@@ -19,8 +19,8 @@ var ProductSchema = new Schema({
     },
 });
 // Set the 'productImagePath' virtual property
-ProductSchema.virtual('productImagePath').get((img) => {
-    return `/img/products-img/${img}`;
+ProductSchema.virtual('productImagePath').get(function () {
+    return `/img/products-img/${this.productImage}`;
 });
 
 // Create the 'Product' model out of the 'ProductSchema'

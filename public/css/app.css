@@ -29,7 +29,7 @@
     text-align: right !important;
 }
 
-.bs4-order-tracking li>div {
+.bs4-order-tracking li > div {
     color: #fff;
     width: 29px;
     text-align: center;
@@ -67,7 +67,7 @@
     color: #38181c;
 }
 
-.bs4-order-tracking li.active>div {
+.bs4-order-tracking li.active > div {
     background: #836f71;
 }
 
@@ -145,14 +145,14 @@ body {
     .homebody {
         background-image: url('/img/cover.jpg');
         background-repeat: no-repeat;
-        background-size: 100%; 
-    } 
+        background-size: 100%;
+    }
 
     .signbody {
         background-image: url('/img/bg.jpg');
         background-repeat: no-repeat;
-        background-size: 100%; 
-    } 
+        background-size: 100%;
+    }
 
     .alert {
         margin-top: 1rem;
@@ -190,18 +190,17 @@ body {
     }
 
     .intro {
-
         margin-left: 10rem;
         margin-right: 10rem;
-        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .featured {
         margin-top: 4rem;
         margin-bottom: 10rem;
-        text-align:center;
+        text-align: center;
         display: flex;
-        justify-content: space-between; 
+        justify-content: space-between;
     }
 
     .featured img {
@@ -210,39 +209,41 @@ body {
     }
 
     @media (min-width: 768px) {
-    .featured img {
-        width: 80%;
-        flex-direction: row;
-    }
+        .featured img {
+            width: 80%;
+            flex-direction: row;
+        }
     }
 
     .navbar {
         background-color: #442403ab !important;
     }
 
-    .navbar-nav > li{
-        margin-left:30px;
-        margin-right:30px;
+    .navbar-nav > li {
+        margin-left: 30px;
+        margin-right: 30px;
     }
 
     .nav-link {
         color: #ffffff !important;
         font-size: 18px;
-   }
+    }
 
     .navbar-bg {
         background-color: #4b3033;
     }
 
-    .login-title, .singup-title {
-        margin-top: 18vw; 
+    .login-title,
+    .singup-title {
+        margin-top: 18vw;
     }
 
     .lead {
-        margin-top: 4w;        
+        margin-top: 4w;
     }
 
-    .bt-login, .bt-signup {
+    .bt-login,
+    .bt-signup {
         margin-top: 4vw;
         font-size: 20px;
         font-weight: bold;
@@ -251,58 +252,59 @@ body {
         color: #ffffff;
     }
 
-.required {
-    color: red;
-}
+    .required {
+        color: red;
+    }
 
-#containerId {
-    margin-right: auto;
-    margin-left: auto;
-    width: 850px;
-    margin-top: 60px;
-}
+    #containerId {
+        margin-right: auto;
+        margin-left: auto;
+        width: 850px;
+        margin-top: 60px;
+    }
 
-.coverImg {
-    width: 100%;
-    height: 200px;
-    margin-top: -90px;
-    object-fit: cover;
-    background-image: url('/img/cover.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
+    .coverImg {
+        width: 100%;
+        height: 200px;
+        margin-top: -90px;
+        object-fit: cover;
+        background-image: url('/img/cover.jpg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
 
-#btnCheckoutPg {
-    background-color: #b35900;
-    color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 149px;
-    font-size: 17px;
-    border: 1px solid #b35900;
-}
+    #btnCheckoutPg {
+        background-color: #b35900;
+        color: white;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 149px;
+        font-size: 17px;
+        border: 1px solid #b35900;
+    }
 
-#btnCheckoutPg:hover {
-    background-color: #ec8f33;
-    border: 1px solid #b35900;
-}
+    #btnCheckoutPg:hover {
+        background-color: #ec8f33;
+        border: 1px solid #b35900;
+    }
 
-.fieldLabel {
-    text-align: right;
-    padding-right: 10px;
-    padding-left: 20px;
-    width: 168px;
-}
+    .fieldLabel {
+        text-align: right;
+        padding-right: 10px;
+        padding-left: 20px;
+        width: 168px;
+    }
 
-#border {
-    border-style: solid;
-    border-color: #E5B98D;
-    padding: 10px;
-}
+    #border {
+        border-style: solid;
+        border-color: #e5b98d;
+        padding: 10px;
+    }
 
-#removeItem {
-    color: #b35900;
-}
+    #removeItem {
+        color: #b35900;
+    }
 
-#removeItem:hover {
-    color: red;
+    #removeItem:hover {
+        color: red;
+    }
 }

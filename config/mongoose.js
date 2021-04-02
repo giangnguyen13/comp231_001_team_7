@@ -23,6 +23,12 @@ module.exports = function () {
     // Load the 'Product' model
     require('../app/models/product.server.model');
 
+    // Load the 'Staff' model
+    require('../app/models/staff.server.model');
+
+    // Load the 'Order' model
+    require('../app/models/order.server.model');
+
     // Return the Mongoose connection instance
     return db;
 };

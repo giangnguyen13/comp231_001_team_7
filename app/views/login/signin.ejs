@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <%- include('../partials/head'); %>
     </head>
-    <body>
+    <body class="signbody">
         <%- include('../partials/navbar'); %>
-        <main class="container">
-            <div class="starter-template text-center py-5 px-3">
-                <h1>Login Page</h1>
+        <main class="container">  
+            <div class="starter-template text-center py-5 px-0">
+                <h1 class="login-title">Login Page</h1>
                 <p class="lead">You are not logged in. Please sign in</p>
+                <br />
                 <form action="/login" method="POST">
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-2">
-                            <label for="email" class="col-form-label"
-                                >Email</label
-                            >
-                        </div>
-                        <div class="col-3">
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                class="form-control"
-                            />
-                        </div>
+                <div class="row g-3 justify-content-center">
+                    <div class="col-2">
+                        <label for="email" class="col-form-label">Email</label>
                     </div>
-                    <br />
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-2">
-                            <label for="password" class="col-form-label"
-                                >Password</label
-                            >
-                        </div>
-                        <div class="col-3">
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                class="form-control"
-                            />
-                        </div>
+                    <div class="col-3">
+                        <input type="email" id="email" name="email" class="form-control" />
                     </div>
-                    <br />
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                </form>
-            </div>
-        </main>
-    </body>
+                </div>
+                <br />
+                <div class="row g-3 justify-content-center">
+                    <div class="col-2">
+                        <label for="password" class="col-form-label">Password</label>
+                    </div>
+                    <div class="col-3">
+                        <input type="password" id="password" name="password" class="form-control" />
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn mt-5 bt-login">
+                    Submit
+                </button>
+            </form>
+            <a href="/forgot_password">Forgot password?</a>
+        </div>
+    </main>
+</body>
 </html>

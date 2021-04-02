@@ -8,7 +8,11 @@
 <body>
 
     <div class="coverImg">
-        <%- include('../partials/navbar'); %>
+        <% if(isAuthenticate){%>
+            <%- include('../partials/navbar-auth'); %>
+        <%}else{%>
+            <%- include('../partials/navbar'); %>
+        <%}%>
     </div>
     <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Checkout Page</h2>
     <main class="container" id="containerId">

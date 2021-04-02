@@ -11,12 +11,13 @@ const jwtKey = config.secretKey;
 // Create a new 'createOrder' controller method
 exports.createOrder = function (req, res, next) {
     // if user is authenticate, do something special
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = req.cookies.token != undefined;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     // Set cookie
@@ -76,15 +77,17 @@ exports.createOrder = function (req, res, next) {
 };
 
 exports.readCart = function (req, res, next) {
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = false;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     var userId = payload != null ? payload.id : null;
+    isAuthenticate = payload != null;
 
     if (req.cookies.tempoId != null || userId != null) {
         let query =
@@ -155,15 +158,17 @@ exports.deleteById = function (req, res, next) {
 };
 
 exports.readCheckout = function (req, res, next) {
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = false;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     var userId = payload != null ? payload.id : null;
+    isAuthenticate = payload != null;
 
     if (req.cookies.tempoId != null || userId != null) {
         let query =
@@ -246,6 +251,7 @@ exports.pay = function (req, res, next) {
 };
 
 exports.viewOrderByTrackingID = function (req, res) {
+    const isAuthenticate = req.cookies.token != undefined;
     let orderId = req.query.orderid;
     if (orderId) {
         Order.find({ trackingNumber: orderId })
@@ -258,10 +264,17 @@ exports.viewOrderByTrackingID = function (req, res) {
                         orders: {},
                     });
                 } else if (orders.length > 0) {
-                    res.render('order/order_id_tracking', {
-                        pageTitle: `Order ${orderId}`,
-                        orders: orders,
-                    });
+                    if (isAuthenticate) {
+                        res.redirect(
+                            `/profile/order_history?orderid=${orderId}`
+                        );
+                    } else {
+                        res.render('order/order_id_tracking', {
+                            pageTitle: `Order ${orderId}`,
+                            orders: orders,
+                            isAuthenticate: isAuthenticate,
+                        });
+                    }
                 } else {
                     res.render('error/error-page', {
                         pageTitle: '404 Not found',
@@ -280,8 +293,10 @@ exports.viewOrderByTrackingID = function (req, res) {
 };
 
 exports.renderTrackOrderView = function (req, res) {
+    const isAuthenticate = req.cookies.token != undefined;
     res.render('order/order_tracking', {
         pageTitle: 'Track Order',
+        isAuthenticate: isAuthenticate,
     });
 };
 function makeTrackingNumber() {

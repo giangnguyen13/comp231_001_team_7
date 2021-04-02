@@ -6,7 +6,11 @@
 </head>
 
 <body class="homebody">
-    <%- include('../partials/navbar'); %>
+    <% if(isAuthenticate){%>
+        <%- include('../partials/navbar-auth'); %>
+    <%}else{%>
+        <%- include('../partials/navbar'); %>
+    <%}%>
     <main class="container">
         <div class="starter-template text-center py-5 px-3">
             <button class="btn bt-menu" onclick="window.location.href='/menu_list'">ORDER NOW</button>

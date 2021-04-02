@@ -97,13 +97,22 @@ exports.viewOrderHistory = function (req, res) {
                 // if has order tracking number filter
                 console.log(trackingValues);
                 if (orderId) {
-                    res.render('order/order_history', {
-                        pageTitle: 'Order History',
-                        trackingValues: trackingValues,
-                        orders: orders.filter(
-                            (order) => order.trackingNumber == orderId
-                        ),
-                    });
+                    const filteredOrder = orders.filter(
+                        (order) => order.trackingNumber == orderId
+                    );
+                    if (filteredOrder.length > 0) {
+                        res.render('order/order_history', {
+                            pageTitle: 'Order History',
+                            trackingValues: trackingValues,
+                            orders: filteredOrder,
+                        });
+                    } else {
+                        res.render('error/error-page', {
+                            pageTitle: '404 Not found',
+                            errorCode: 404,
+                            errorMessage: 'Cannot find order',
+                        });
+                    }
                 } else {
                     res.render('order/order_history', {
                         pageTitle: 'Order History',

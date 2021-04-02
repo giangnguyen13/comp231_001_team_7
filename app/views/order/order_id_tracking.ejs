@@ -6,7 +6,11 @@
 </head>
 
 <body>
-    <%- include('../partials/navbar'); %>
+    <% if(isAuthenticate){%>
+        <%- include('../partials/navbar-auth'); %>
+    <%}else{%>
+        <%- include('../partials/navbar'); %>
+    <%}%>
     <div class="input-group rounded" style="width: 200px; margin: 10px">
         <input type="search" class="form-control rounded" placeholder="Search by Order #" aria-label="Search"
             aria-describedby="search-addon" />

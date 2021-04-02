@@ -29,6 +29,9 @@ module.exports = function () {
     // Load the 'Order' model
     require('../app/models/order.server.model');
 
+    // Load the 'Review' model
+    require('../app/models/review.server.model');
+
     // Return the Mongoose connection instance
     return db;
 };

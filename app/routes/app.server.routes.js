@@ -19,7 +19,11 @@ module.exports = function (app) {
     app.get('/users', LoginController.display);
     app.get('/welcome', LoginController.welcome);
     app.get('/home', LoginController.verifyUser, HomeController.home);
+
+    // Review
     app.get('/review', ReviewController.review);
+    app.post('/review', ReviewController.createReview);
+    app.get('/reviews', ReviewController.reviewsList); // for staff to list reviews
 
     app.route('/profile/edit')
         .get(LoginController.verifyUser, ProfileController.renderEditProfile)

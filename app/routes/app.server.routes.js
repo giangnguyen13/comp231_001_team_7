@@ -67,6 +67,13 @@ module.exports = function (app) {
         .put(OrderController.updateById)
         .delete(OrderController.deleteById);
 
+    app.route('/profile/order_history').get(
+        LoginController.verifyUser,
+        ProfileController.viewOrderHistory
+    );
+
+    app.route('/track_order').get(OrderController.renderTrackOrderView);
+    app.route('/view_order').get(OrderController.viewOrderByTrackingID);
     //Checkout
     app.route('/checkout').get(OrderController.readCheckout);
     app.route('/pay').post(OrderController.pay);

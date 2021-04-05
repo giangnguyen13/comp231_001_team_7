@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <%- include('../partials/navbar-auth'); %>
+    <div class="input-group rounded" style="width: 200px; margin: 10px">
+        <input type="search" class="form-control rounded" placeholder="Search by Order #" aria-label="Search"
+            aria-describedby="search-addon" />
+    </div>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush" id="orderHistory">
+                <a href="/nothing_here" class="list-group-item list-group-item-action bg-light">History</a>
+                <% trackingValues.forEach(function(value){ %>
+                <a href="/profile/order_history?orderid=<%= value%>"
+                    class="list-group-item list-group-item-action"># <%= value%></a>
+                <% })%>
+            </div>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <main class="container">
+                    <br />
+                    <h3>Status Updates:</h3>
+                    <table class="table" id="table01">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="2">Action</th>
+                                <th scope="col" >Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="2">Delivered</td>
+                                <td>
+                                    <% if(orders[0].status >= 4){ %>
+                                        <span class="material-icons text-success">check_circle</span> 
+                                    <% }else{ %>
+                                        <span class="material-icons text-warning">pending</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Shipped</td>
+                                <td>
+                                    <% if(orders[0].status >= 3){ %>
+                                        <span class="material-icons text-success">check_circle</span> 
+                                    <% }else{ %>
+                                        <span class="material-icons text-warning">pending</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Ready</td>
+                                <td>
+                                    <% if(orders[0].status >= 2){ %>
+                                        <span class="material-icons text-success">check_circle</span> 
+                                    <% }else{ %>
+                                        <span class="material-icons text-warning">pending</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Ordered</td>
+                                <td>
+                                    <% if(orders[0].status >= 1){ %>
+                                        <span class="material-icons text-success">check_circle</span> 
+                                    <% }else{ %>
+                                        <span class="material-icons text-warning">pending</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <h3>Order History</h3>
+                    <table class="table" id="table02">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Items</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Unit Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% orders.forEach(function(order){ %>
+                            <tr>
+                                <td><%= order.title%></td>
+                                <td><%= order.quantity%></td>
+                                <td>$<%= order.price%></td>
+                                <td hidden>$<%= order.status%></td>
+                                <td hidden>$<%= order.stage%></td>
+                            </tr>
+                        <% })%>
+                        </tbody>
+                    </table>
+                </main>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#orderHistory").children().each(function(index){
+                const currentItemInURL = $(location).attr('href').split("=");
+                const currentItemInLink = $(this).attr('href').split("=");
+                if (currentItemInURL[1]){
+                    if(currentItemInURL[1] == currentItemInLink[1] && index != 0){
+                        $(this).addClass("active");
+                        anyActive = true;
+                    }
+                }else{
+                    $("#orderHistory").children().eq(1).addClass("active");
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

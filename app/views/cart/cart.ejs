@@ -5,6 +5,11 @@
 <%- include('../partials/head'); %>
 </head>
 <body>
+    <% if(isAuthenticate){%>
+        <%- include('../partials/navbar-auth'); %>
+    <%}else{%>
+        <%- include('../partials/navbar'); %>
+    <%}%>
     <div class="container pt-4">
         <h2 class="text-center pb-4">This is cart page</h2>
         <h2 class="text-center pb-4">Review your cart</h2>

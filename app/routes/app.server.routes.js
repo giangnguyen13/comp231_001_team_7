@@ -48,6 +48,7 @@ module.exports = function (app) {
     app.route('/add_product').get(ProductController.renderAdd);
     app.route('/products').post(ProductController.createProduct);
     app.route('/list_products').get(ProductController.readProduct);
+    app.route('/change_img').post(ProductController.changeImage);
     app.route('/list_products/:productId')
         .get(ProductController.read)
         .put(ProductController.updateByProductId)
@@ -72,6 +73,13 @@ module.exports = function (app) {
         .put(OrderController.updateById)
         .delete(OrderController.deleteById);
 
+    app.route('/profile/order_history').get(
+        LoginController.verifyUser,
+        ProfileController.viewOrderHistory
+    );
+
+    app.route('/track_order').get(OrderController.renderTrackOrderView);
+    app.route('/view_order').get(OrderController.viewOrderByTrackingID);
     //Checkout
     app.route('/checkout').get(OrderController.readCheckout);
     app.route('/pay').post(OrderController.pay);

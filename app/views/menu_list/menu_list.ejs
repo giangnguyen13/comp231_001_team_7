@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <%- include('../partials/head'); %>
 </head>
+
 <body>
-    <% if(isAuthenticate) {%>
+    <div class="coverImg">
+        <% if(isAuthenticate) {%>
         <%- include('../partials/navbar-auth'); %>
-    <% }else{ %>
+        <% }else{ %>
         <%- include('../partials/navbar'); %>
-    <% } %>
-    <%- include('../partials/bg'); %>
-    <div class="container pt-4">
+        <% } %>
+    </div>
+    <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Menu List</h2>
 
-        <form class="my-5 searchForm">
-            <div class="form-group">
-                <div class="input-group input-group-lg mb-3">
-                    <input class="form-control" id="inputText" name="searchResult" type="text" placeholder="search for a product" />
+    <main class="container" id="containerId">
+        <div class="starter-template py-5 px-5 ">
+
+            <form class="my-5 searchForm">
+                <div class="form-group">
+                    <div class="input-group input-group-lg mb-3">
+                        <input class="form-control" id="inputText" name="searchResult" type="text"
+                            placeholder="search for a product" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
-        <div id="noResultsMessage" class="alert alert-danger text-center font-weight-bold"></div>
+            <div id="noResultsMessage" class="alert alert-danger text-center font-weight-bold"></div>
 
-        <div class="productsContainer">
-            <% product.forEach(function(product){ %>
+            <div class="productsContainer">
+                <% product.forEach(function(product){ %>
 
                 <form method="post" action="/createOrder" class="productForm show">
                     <input type="hidden" name="title" value="<%= product.title %>">
@@ -35,66 +42,82 @@
                     <% } %>
                     <input type="hidden" name="temporaryId" value="<%= Math.random() %>">
 
-                    <div>
-                        <div>Id: <%= product.productId %> </div>
-                        <div class="title">Title: <%= product.title %></div>
-                        <div class="content">Content: <%= product.content %></div>
-                        <div>Price: <%= product.price %></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <input type="number" class="form-control" name="quantity" min="1" value="1" oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
+                    <div style="padding: 10px;" id="border">
+                        <div hidden>Id: <%= product.productId %> </div>
+                        <div class="title">
+                            <h3><%= product.title %></h3>
+                        </div>
+                        <div class="content" style="padding-left: 15px;"><%= product.content %></div>
+                        <div class="row" style="padding-left: 25px;">
+                            <div class="col-2">
+                                <div>
+                                    <h6>Price: $ <%= product.price %></h6>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <input type="submit" class="btn btn-sm btn-success" value="Add to cart" style="width: 200px" />
+                            <div class="col-3" style="text-align: right;">
+                                <h6>Quantity:</h6>
+                            </div>
+                            <div class="col-2" style="padding: 0px;">
+                                <input type="number" class="form-control" name="quantity" min="1" value="1"
+                                    oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
+                            </div>
+                            <div class="col-5" style="text-align: right; padding-right: 15px;">
+                                <input type="submit" class="btn btn-sm btn-success" value="Add to cart"
+                                    style="width: 200px; border-radius: 0px;" id="btnCheckoutPg" />
                             </div>
                         </div>
                     </div>
                 </form>
-            <% })%>
-        </div>
-    <div class="text-center pt-4">
-        <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg btn-primary"> Main Page</a>
+                <br>
 
-        <a href="/cart" class="btn btn-lg btn-primary"> Checkout</a>
-    </div>
+                <% })%>
+            </div>
+            <div class="text-center pt-4">
+                <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg button btn-primary" id="btn-MenuList">
+                    Main
+                    Page</a>
+                    <a href="/cart" class="btn btn-lg btn-primary" id="btn-MenuList">Proceed to Cart</a>
+            </div>
 
 
-    <script>
-        // jQuery Live Search for products //
+            <script>
+                // jQuery Live Search for products //
 
-        $('#noResultsMessage').hide();
-
-        $('#inputText').on('keyup', function () {
-            var inputText = $(this).val(); 
-            var rowCount = $('.productForm').length; 
-            $('.productForm').each(function () {
-                rowCount++;
-                if (rowCount !== 0) {
-                    var title = $(this).find('.title').text(); 
-                    var content = $(this).find('.content').text(); 
-                    if (title.toLowerCase().indexOf(inputText.toLowerCase()) === -1 &&
-                        content.toLowerCase().indexOf(inputText.toLowerCase()) === -1 ) {
-                        $(this).removeClass('show');
-                        $(this).hide();
-                        rowCount--;
-                    } else {
-                        $(this).show();
-                        $(this).addClass('show');
-                    }
-                }
-            });
-
-            if ($('.show').length + 1 > 1) {
                 $('#noResultsMessage').hide();
-                $('.productsContainer').show();
-            } else {
-                $('#noResultsMessage')
-                    .show()
-                    .text('Sorry, we couldn\'t find any products related to "' + inputText + '"');
-                $('.productsContainer').hide();
-            }
-        });
-</script>
 
+                $('#inputText').on('keyup', function () {
+                    var inputText = $(this).val();
+                    var rowCount = $('.productForm').length;
+                    $('.productForm').each(function () {
+                        rowCount++;
+                        if (rowCount !== 0) {
+                            var title = $(this).find('.title').text();
+                            var content = $(this).find('.content').text();
+                            if (title.toLowerCase().indexOf(inputText.toLowerCase()) === -1 &&
+                                content.toLowerCase().indexOf(inputText.toLowerCase()) === -1) {
+                                $(this).removeClass('show');
+                                $(this).hide();
+                                rowCount--;
+                            } else {
+                                $(this).show();
+                                $(this).addClass('show');
+                            }
+                        }
+                    });
+
+                    if ($('.show').length + 1 > 1) {
+                        $('#noResultsMessage').hide();
+                        $('.productsContainer').show();
+                    } else {
+                        $('#noResultsMessage')
+                            .show()
+                            .text('Sorry, we couldn\'t find any products related to "' + inputText + '"');
+                        $('.productsContainer').hide();
+                    }
+                });
+            </script>
+        </div>
+    </main>
 </body>
+
 </html>

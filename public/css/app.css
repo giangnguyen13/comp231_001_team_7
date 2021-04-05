@@ -285,6 +285,7 @@ body {
     #btnCheckoutPg:hover {
         background-color: #ec8f33;
         border: 1px solid #b35900;
+        color: #030303;
     }
 
     .fieldLabel {
@@ -307,4 +308,13 @@ body {
     #removeItem:hover {
         color: red;
     }
+}
+
+#btn-MenuList:hover {
+    color: #030303;
+}
+
+#btn-MenuList {
+    background-color: #b35900;
+    border-color: #030303;
 }

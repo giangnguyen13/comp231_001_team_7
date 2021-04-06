@@ -94,9 +94,9 @@ exports.readCart = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                      temporaryId: req.cookies.tempoId,
-                      stage: constant.ORDER_STAGE_CART,
-                  };
+                    temporaryId: req.cookies.tempoId,
+                    stage: constant.ORDER_STAGE_CART,
+                };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -175,9 +175,9 @@ exports.readCheckout = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                      temporaryId: req.cookies.tempoId,
-                      stage: constant.ORDER_STAGE_CART,
-                  };
+                    temporaryId: req.cookies.tempoId,
+                    stage: constant.ORDER_STAGE_CART,
+                };
 
         Order.find(query, function (err, orders) {
             if (err) {
@@ -210,6 +210,7 @@ exports.readCheckout = function (req, res, next) {
 };
 
 exports.pay = function (req, res, next) {
+    const isAuthenticate = req.cookies.token != undefined;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
@@ -224,9 +225,9 @@ exports.pay = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                      temporaryId: req.cookies.tempoId,
-                      stage: constant.ORDER_STAGE_CART,
-                  };
+                    temporaryId: req.cookies.tempoId,
+                    stage: constant.ORDER_STAGE_CART,
+                };
 
         Order.find(query, function (err, orders) {
             if (err) {
@@ -242,6 +243,7 @@ exports.pay = function (req, res, next) {
                 res.render('thank_you/thank_you', {
                     pageTitle: 'Thank You',
                     trackingID: trackingID,
+                    isAuthenticate: isAuthenticate,
                 });
             }
         });

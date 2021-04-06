@@ -17,7 +17,7 @@
     <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Menu List</h2>
 
     <main class="container" id="containerId">
-        <div class="starter-template py-5 px-5 ">
+        <div class="starter-template py-4 px-6 ">
 
             <form class="my-5 searchForm">
                 <div class="form-group">
@@ -42,28 +42,33 @@
                     <% } %>
                     <input type="hidden" name="temporaryId" value="<%= Math.random() %>">
 
-                    <div style="padding: 10px;" id="border">
+                    <div id="border" class="row">
                         <div hidden>Id: <%= product.productId %> </div>
-                        <div class="title">
-                            <h3><%= product.title %></h3>
+                        <div class="col-3" style="padding-right: 10px; padding-top: 10px;">
+                            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img"
+                                style="height: 95%; width: 100%;">
                         </div>
-                        <div class="content" style="padding-left: 15px;"><%= product.content %></div>
-                        <div class="row" style="padding-left: 25px;">
-                            <div class="col-2">
-                                <div>
-                                    <h6>Price: $ <%= product.price %></h6>
+                        <div class="col-9" style="padding-top: 25px;">
+                            <div class="title">
+                                <h3 style="text-transform: capitalize; "><%= product.title %></h3>
+                            </div>
+                            <div class="content" style="padding-left: 15px; padding-bottom: 15px;">
+                                <%= product.content %></div>
+                            <div class="row" style="padding-left: 25px;">
+                                <div class="col-3">
+                                    <h5> $ <%= product.price %></h5>
                                 </div>
-                            </div>
-                            <div class="col-3" style="text-align: right;">
-                                <h6>Quantity:</h6>
-                            </div>
-                            <div class="col-2" style="padding: 0px;">
-                                <input type="number" class="form-control" name="quantity" min="1" value="1"
-                                    oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
-                            </div>
-                            <div class="col-5" style="text-align: right; padding-right: 15px;">
-                                <input type="submit" class="btn btn-sm btn-success" value="Add to cart"
-                                    style="width: 200px; border-radius: 0px;" id="btnCheckoutPg" />
+                                <div class="col-2" style="text-align: right; font-size: xx-large;">
+                                    <h5>Quantity:</h5>
+                                </div>
+                                <div class="col-2" style="padding: 0px;">
+                                    <input type="number" class="form-control" name="quantity" min="1" value="1"
+                                        oninput="validity.valid||(value='');" placeholder="Quantity" value="" />
+                                </div>
+                                <div class="col-3" style="text-align: right; padding-right: 15px;">
+                                    <input type="submit" class="btn btn-sm btn-success" value="Add to cart"
+                                        style="width: 200px; border-radius: 0px;" id="btnCheckoutPg" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,9 +79,8 @@
             </div>
             <div class="text-center pt-4">
                 <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg button btn-primary" id="btn-MenuList">
-                    Main
-                    Page</a>
-                    <a href="/cart" class="btn btn-lg btn-primary" id="btn-MenuList">Proceed to Cart</a>
+                    Home Page</a>
+                <a href="/cart" class="btn btn-lg btn-primary" id="btn-MenuList">Proceed to Cart</a>
             </div>
 
 

@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <%- include('../partials/head'); %>
-    </head>
-    <body>
-        <div class="container pt-4">
-            <form action="" method="post">
-                <div class="text-center p-4">
-                    <h4>Thank you Page</h4>
-                    <label style="font-weight: bold">Thank you for your purchase </label>
-                    <label for="">Your tracking ID: <b><%= trackingID%></b></label>
-                </div>
 
-                <div class="text-center pt-4">
-                            <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
+<head>
+    <%- include('../partials/head'); %>
+</head>
 
-                            <a href="/menu_list" class="btn btn-lg btn-primary">Menu List</a>
+<body>
+    <div class="coverImg">
+        <% if(isAuthenticate) {%>
+        <%- include('../partials/navbar-auth'); %>
+        <% }else{ %>
+        <%- include('../partials/navbar'); %>
+        <% } %>
+    </div>
 
-                </div>
-            </form>
+    <div class="container pt-4">
+        <div class="text-center p-4">
+            <h2 style="color: #ac7339;
+        font-family: Georgia, 'Times New Roman', Times, serif;">Brew4You Coffee</h2>
+            <h1>Thank you for your purchase!</h1>
+            <h4>Your tracking ID is <%= trackingID%></h4>
         </div>
-    </body>
+        <div class="text-center pt-4">
+            <a href="http://localhost:3000" class="btn btn-lg btn-primary" id="btn-MenuList"> Home Page</a>
+            <!--<a href="/menu_list" class="btn btn-lg btn-primary" id="btn-MenuList">Menu List</a>-->
+        </div>
+    </div>
+</body>
+
 </html>

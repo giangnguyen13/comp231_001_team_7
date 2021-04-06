@@ -95,12 +95,20 @@ exports.viewOrderHistory = function (req, res) {
                 ];
 
                 // if has order tracking number filter
-                console.log(trackingValues);
                 if (orderId) {
                     const filteredOrder = orders.filter(
                         (order) => order.trackingNumber == orderId
                     );
                     if (filteredOrder.length > 0) {
+                        var orderStatusNumber = filteredOrder[0].status;
+                        if (
+                            orderStatusNumber != constant.ORDER_STATUS_DELIVERED
+                        ) {
+                            filteredOrder.forEach((order) => {
+                                order.status = ++orderStatusNumber;
+                                order.save();
+                            });
+                        }
                         res.render('order/order_history', {
                             pageTitle: 'Order History',
                             trackingValues: trackingValues,

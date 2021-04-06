@@ -264,6 +264,12 @@ exports.viewOrderByTrackingID = function (req, res) {
                         orders: {},
                     });
                 } else if (orders.length > 0) {
+                    var orderStatusNumber = orders[0].status;
+                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
+                        orders[0].status = ++orderStatusNumber;
+                        orders[0].save();
+                    }
+
                     if (isAuthenticate) {
                         res.redirect(
                             `/profile/order_history?orderid=${orderId}`
@@ -274,12 +280,6 @@ exports.viewOrderByTrackingID = function (req, res) {
                             orders: orders,
                             isAuthenticate: isAuthenticate,
                         });
-                    }
-
-                    var orderStatusNumber = orders[0].status;
-                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
-                        orders[0].status = ++orderStatusNumber;
-                        orders[0].save();
                     }
                 } else {
                     res.render('error/error-page', {

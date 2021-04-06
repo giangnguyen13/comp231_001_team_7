@@ -5,9 +5,6 @@
 </head>
 <body class="homebody">
     <%- include('./partials/navbar-auth'); %>
-    <div class="custom-alert">
-        <h1>Hello <%= customerName %>, you are logged in</h1>
-    </div>
     <main class="container">
         <div class="starter-template text-center py-5 px-3">
             <button class="btn bt-menu" onclick="window.location.href='/menu_list'">ORDER NOW</button>
@@ -30,7 +27,7 @@
     </main>
     <script>
         // just to make sure this is working
-        hello('this is a param');
+        sessionStorage.setItem("username", "<%= customerName %>");
     </script>
 </body>
 

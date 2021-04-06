@@ -40,6 +40,12 @@ module.exports = function (app) {
         StaffController.authenticate,
         StaffController.staffPortal
     );
+    app.get(
+        '/staff/dashboard',
+        StaffController.verifyStaff,
+        StaffController.staffPortal
+    );
+
     app.get('/staff/signup', StaffController.renderSignup);
     app.post('/staff/signup', StaffController.signup);
     app.get('/staff/signout', StaffController.signout);

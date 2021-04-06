@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation" href="/"
+            rel="noopener">
+            <img src="/img/logo.png" width="36" height="36" class="navbar-nav-svg d-inline-blalign-text-top"
+                viewBox="0 0 512 499.36">
+            <title>Brew4You</title>
+
+            <small class="d-md-none ms-2">Brew4You</small>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mx-auto me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/staff/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/list_products">Menu List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Delivery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Marketing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Staff</a>
+                </li>
+            </ul>
+            <span id="username" style="color: white;">Hello Giang Nguyen</span>
+            &nbsp;
+            <a id="logout" class="btn btn-outline-primary" href="/signout">Logout</a>
+        </div>
+    </div>
+</nav>
+<script>
+    $(document).ready(function () {
+        $("#username").text(`${sessionStorage.getItem("staff")}`);
+    });
+</script>

@@ -230,6 +230,18 @@ body {
         font-size: 18px;
     }
 
+    .nav-link-custom {
+        color: #333 !important;
+        display: block;
+        padding-top: 0.5rem;
+        padding-right: 1rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        text-decoration: none;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out;
+    }
+
     .navbar-bg {
         background-color: #4b3033;
     }

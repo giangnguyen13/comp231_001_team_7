@@ -275,6 +275,12 @@ exports.viewOrderByTrackingID = function (req, res) {
                             isAuthenticate: isAuthenticate,
                         });
                     }
+
+                    var orderStatusNumber = orders[0].status;
+                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
+                        orders[0].status = ++orderStatusNumber;
+                        orders[0].save();
+                    }
                 } else {
                     res.render('error/error-page', {
                         pageTitle: '404 Not found',

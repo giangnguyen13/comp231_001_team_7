@@ -264,6 +264,14 @@ exports.viewOrderByTrackingID = function (req, res) {
                         orders: {},
                     });
                 } else if (orders.length > 0) {
+                    var orderStatusNumber = orders[0].status;
+                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
+                        orders.forEach((order) => {
+                            order.status = ++orderStatusNumber;
+                            order.save();
+                        });
+                    }
+
                     if (isAuthenticate) {
                         res.redirect(
                             `/profile/order_history?orderid=${orderId}`

@@ -161,7 +161,10 @@ exports.displayStaffList = function (req, res, next) {
         if (err) {
             return next(err);
         } else {
-            res.json(staff);
+            res.render('staff/staffList', {
+                pageTitle: 'Employee List',
+                staffs: staff,
+            });
         }
     });
 };

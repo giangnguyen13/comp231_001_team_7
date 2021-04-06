@@ -1,13 +1,26 @@
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
+const jwtKey = config.secretKey;
+
 const Review = require('mongoose').model('Review');
 
 exports.review = function (req, res) {
-    const token = req.cookies.token;
-    if (!token) {
+    // if user is authenticate, do something special
+    const isAuthenticate = req.cookies.token != undefined;
+    var payload = null;
+    try {
+        payload = jwt.verify(req.cookies.token, jwtKey);
+    } catch (e) {
+        console.log('Not logged in');
+    }
+    if (isAuthenticate) {
         res.render('review/review', {
-            pageTitle: 'Brew4You',
+            pageTitle: 'Review',
+            isAuthenticate: isAuthenticate,
+            userId: payload != null ? payload.id : null,
         });
     } else {
-        res.redirect('/review');
+        res.redirect('/');
     }
 };
 

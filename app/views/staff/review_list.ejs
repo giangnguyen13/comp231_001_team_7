@@ -13,24 +13,23 @@
             <%- include('../partials/sidebar-staffPortal'); %>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="margin-left: 18rem">
                 <div class="row">
-                    <h2 style="max-width: fit-content;">Section title</h2>
-                    <a href="/staff/signup" style="max-width: fit-content;" class="btn btn-outline-primary">Add new staff</a>
+                    <h2 style="max-width: fit-content;">Review List</h2>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-sm" style="max-width: 75%">
+                    <table class="table table-striped table-sm" style="max-width: 85%">
                         <thead>
                             <tr>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>User role</th>
+                                <th style="width: 10%;">Rating</th>
+                                <th style="width: 15%;">Received at</th>
+                                <th>Content</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% staffs.forEach(function(staff){ %>
+                            <% reviews.forEach(function(review){ %>
                             <tr>
-                                <td><%= staff.fullName%></td>
-                                <td><%= staff.email%></td>
-                                <td><%= staff.role%></td>
+                                <td><%= review.star%> <label for="star5" class="text-warning">☆</label></td>
+                                <td><%= review.created%></td>
+                                <td><%= review.comment%></td>
                             </tr>
                             <% })%>
 

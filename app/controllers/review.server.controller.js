@@ -42,7 +42,10 @@ exports.reviewsList = function (req, res, next) {
         if (err) {
             return next(err);
         } else {
-            res.json(reviews);
+            res.render('staff/review_list', {
+                pageTitle: 'Review List',
+                reviews: reviews,
+            });
         }
     });
 };

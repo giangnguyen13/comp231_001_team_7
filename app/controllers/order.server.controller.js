@@ -264,10 +264,14 @@ exports.viewOrderByTrackingID = function (req, res) {
                         orders: {},
                     });
                 } else if (orders.length > 0) {
-                    var orderStatusNumber = orders[0].status;
-                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
-                        orders[0].status = ++orderStatusNumber;
-                        orders[0].save();
+                    for (let i = 0; i < orders.length; i++) {
+                        var orderStatusNumber = orders[i].status;
+                        if (
+                            orderStatusNumber != constant.ORDER_STATUS_DELIVERED
+                        ) {
+                            orders[i].status = ++orderStatusNumber;
+                            orders[i].save();
+                        }
                     }
 
                     if (isAuthenticate) {

@@ -3,6 +3,17 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/comp-231-07');
 
 var Product = require('../models/product.server.model');
+var Staff = require('../models/staff.server.model');
+
+var superUser = new Staff({
+    firstName: 'Admin',
+    lastName: 'User',
+    role: 'Administrator',
+    email: 'admin@brew4you.ca',
+    password: 'welcome',
+});
+
+superUser.save();
 
 var products = [
     new Product({

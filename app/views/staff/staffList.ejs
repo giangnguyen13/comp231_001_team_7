@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <link href="/css/staffPortal.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <%- include('../partials/staff-navbar-auth'); %>
+            <%- include('../partials/sidebar-staffPortal'); %>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" style="margin-left: 18rem">
+                <div class="row">
+                    <h2 style="max-width: fit-content;">Section title</h2>
+                    <a href="/staff/signup" style="max-width: fit-content;" class="btn btn-outline-primary">Add new staff</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" style="max-width: 75%">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>User role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% staffs.forEach(function(staff){ %>
+                            <tr>
+                                <td><%= staff.fullName%></td>
+                                <td><%= staff.email%></td>
+                                <td><%= staff.role%></td>
+                            </tr>
+                            <% })%>
+
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+    <script>
+        $(document).ready(function () {
+            sessionStorage.setItem("staff", "Giang KW");
+        });
+    </script>
+</body>
+
+</html>

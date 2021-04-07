@@ -6,10 +6,13 @@
 </head>
 <body>
     <%- include('../partials/staff-navbar-auth'); %>
-    <h2 class="text-center">This page is for admin</h2>
+    <h2 class="text-center">Update Menu List</h2>
     <div class="container pt-4">
-    <table align="center">
+    <table align="center" class="table table-hover">
+        <thead>
+     
         <tr>
+
             <td>
                 <div>
                     <label style="font-weight: bold;">Product ID:</label>
@@ -32,10 +35,22 @@
             </td>
             <td>
                 <div>
-                    <label style="font-weight: bold;">Update/Delete</label>
+                    <label style="font-weight: bold;">Update</label>
                 </div>
             </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Image</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <label style="font-weight: bold;">Delete</label>
+                </div>
+            </td>
+
         </tr>
+        </thead>
 
         <% product.forEach(function(product){ %>
 
@@ -43,7 +58,7 @@
                 <tr>
                     <td>
                         <div>
-                            <input type="text" class="form-control" name="productId" value="<%= product.productId %>" />
+                            <input type="text" class="form-control" name="productId"  value="<%= product.productId %>" />
                         </div>
                     </td>
                     <td>
@@ -61,13 +76,15 @@
                             <input type="number" class="form-control" name="price" value="<%= product.price %>" />
                         </div>
                     </td>
-                    <td>
+                    <td class="col-xs-4">
                         <div>
                             <button type="submit" class="btn btn-sm btn-success" value="Update Product" style="margin-top: 0px;">
                                 <span class="material-icons">
                                     create
                                 </span>
                             </button>
+                    </td>
+                    <td>
                             <a class="btn btn-sm btn-success" href="/list_products/<%= product.productId %>" style="margin-top: 0px;">
                                 <span class="material-icons">
                                     add_photo_alternate
@@ -75,6 +92,8 @@
                             </a>
                         </div>
             </form>
+                    </td>
+                    <td class="col-xs-4">
                         <div>
                             <form method="post" action="/list_products/<%= product.productId %>?_method=DELETE">
                                 <button type="submit" class="btn btn-sm btn-danger" value="Delete Product" style="margin-top: 0px;">
@@ -86,12 +105,11 @@
                         </div>
                     </td>
                 </tr>
-
             <% })%>
     </table>
     <div class="text-center pt-4">
         <a href="/add_product" class="btn btn-lg btn-primary">Add Product</a>
-        <a href="/staff/dashboard" class="btn btn-lg btn-primary"> Main Page</a>
+        <a href="/staff/dashboard" class="btn btn-lg btn-success"> Main Page</a>
     </div>
 </body>
 

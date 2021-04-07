@@ -1,90 +1,111 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<%- include('../partials/head'); %>
+    <%- include('../partials/head'); %>
 </head>
+
 <body>
-    <div class="container pt-4">
-        <h2 class="text-center pb-4">This is cart page</h2>
-        <h2 class="text-center pb-4">Review your cart</h2>
-    <table align="center">
-        <tr>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Title:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Content:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Price:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Quantity:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Update/Delete the Item </label>
-                </div>
-            </td>
-        </tr>
-
-        <% order.forEach(function(order){ %>
-
-            <form method="post" action="/cart/<%= order._id %>?_method=PUT">
-                <tr>
-                    <td>
-                        <div>
-                            <%= order.title %>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <%= order.content %>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <%= order.price %>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="number" class="form-control" min="1" oninput="validity.valid||(value='');" name="quantity" value="<%= order.quantity %>" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="submit" class="btn btn-sm btn-success" value="Update Item" style="width: 200px" />
-                        </div>
-            </form>
-                        <div>
-                            <form method="post" action="/cart/<%= order._id %>?_method=DELETE">
-                                <input type="submit" class="btn btn-sm btn-danger" value="Delete Item" style="width: 200px" />
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-
-            <% })%>
-    </table>
-    <div class="text-center pt-4">
-        <a href="/menu_list" class="btn btn-lg btn-primary">Menu List</a>
-        <% if(order[0] != null) {%>
-            <a href="/checkout" class="btn btn-lg btn-primary">Checkout</a>
+    <div class="coverImg">
+        <% if(isAuthenticate) {%>
+        <%- include('../partials/navbar-auth'); %>
+        <% }else{ %>
+        <%- include('../partials/navbar'); %>
         <% } %>
     </div>
-    <div class="text-center pt-4">
-        <a href="http://localhost:3000" class="btn btn-lg btn-primary"> Main Page</a>
-    </div>
+    <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Review Your Cart</h2>
+
+    <main class="container" id="containerId">
+        <div class="starter-template py-5 px-6 ">
+            <div id="border" style="padding: 15px;">
+
+                <table class="table text-center">
+                    <tr style="font-size: large;">
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Item</label>
+                            </div>
+                        </td>
+                        <td hidden>
+                            <div>
+                                <label style="font-weight: bold;">Content</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;"> Unit Price</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Quantity</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Update/Delete the Item </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <% order.forEach(function(order){ %>
+
+                    <form method="post" action="/cart/<%= order._id %>?_method=PUT">
+                        <tr>
+                            <td class="col-3">
+                                <div>
+                                    <%= order.title %>
+                                </div>
+                            </td>
+                            <td hidden>
+                                <div>
+                                    <%= order.content %>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div>
+                                    $ <%= order.price %>
+                                </div>
+                            </td>
+                            <td class="col-1">
+                                <div>
+                                    <input type="number" class="form-control" min="1"
+                                        oninput="validity.valid||(value='');" name="quantity"
+                                        value="<%= order.quantity %>" />
+                                </div>
+                            </td>
+                            <td class="col-5">
+                                <div style="margin-left: -110px;">
+                                    <input type="submit" class="btn btn-sm btn-success" value="Update Item"
+                                        id="btn-MenuList" style="width: 125px; background-color: rgb(5, 151, 5);" />
+                                </div>
+                    </form>
+                    <div style="text-align: right; margin-top: -31px; padding-right: 30px;">
+                        <form method="post" action="/cart/<%= order._id %>?_method=DELETE">
+                            <input type="submit" class="btn btn-sm btn-danger" value="Delete Item"
+                                style="width: 125px; background-color: rgb(212, 33, 33);" id="btn-MenuList" />
+                        </form>
+                    </div>
+                    </td>
+                    </tr>
+
+                    <% })%>
+                </table>
+                <div class="text-center pt-4" style="padding-bottom: 10px; margin-top: -15px;">
+                    <% if(order[0] != null) {%>
+                    <a href="/checkout" class="btn btn-lg btn-primary" id="btn-MenuList"
+                        style="width: 190px;">Checkout</a>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <a href="http://localhost:3000" class="btn btn-lg btn-primary" id="btn-MenuList"> Home Page</a>
+                <a href="/menu_list" class="btn btn-lg btn-primary" id="btn-MenuList">Menu List</a>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

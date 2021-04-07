@@ -33,9 +33,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/menu_list">Menu List</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"
                         aria-expanded="false">My Profile</a>
@@ -46,9 +43,19 @@
                         <li>
                             <a class="dropdown-item" href="/profile/change-password">Change Password</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="/profile/order_history">Order History</a>
+                        </li>
+
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item">
+                    <a class="nav-link" href="/track_order">Track Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/review">Contact Us</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="productDropdown" data-bs-toggle="dropdown"
                         aria-expanded="false">Products</a>
                     <ul class="dropdown-menu" aria-labelledby="productDropdown">
@@ -59,9 +66,16 @@
                             <a class="dropdown-item" href="/list_products">List Products</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
+            <span id="username" style="color: white;">Hello Giang Nguyen</span>
+            &nbsp;
             <a class="btn btn-outline-primary" href="/signout">Logout</a>
         </div>
     </div>
 </nav>
+<script>
+    $(document).ready(function(){
+        $("#username").text(`Hello ${sessionStorage.getItem("username")}`);
+    });
+</script>

@@ -26,6 +26,7 @@ exports.saveProfile = function (req, res) {
     const update = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        isLoyaltyCustomer: req.body.isLoyaltyCustomer == 'on',
     };
     User.findByIdAndUpdate(req.body._id, update, function (err, user) {
         if (err) {

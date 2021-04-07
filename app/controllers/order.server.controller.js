@@ -1,6 +1,7 @@
 // Load the 'Order' Mongoose model
 var Order = require('mongoose').model('Order');
 var Product = require('mongoose').model('Product');
+var User = require('mongoose').model('User');
 var constant = require('../../config/constant');
 
 const cookieParser = require('cookie-parser');
@@ -94,9 +95,9 @@ exports.readCart = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                    temporaryId: req.cookies.tempoId,
-                    stage: constant.ORDER_STAGE_CART,
-                };
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -175,9 +176,9 @@ exports.readCheckout = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                    temporaryId: req.cookies.tempoId,
-                    stage: constant.ORDER_STAGE_CART,
-                };
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {
@@ -193,14 +194,38 @@ exports.readCheckout = function (req, res, next) {
                 var delivery = 3;
                 var totalSum = subTotal * constant.TAX_RATE + delivery;
                 //
-                res.render('checkout/checkout', {
-                    pageTitle: 'Checkout',
-                    order: orders,
-                    subTotal: subTotal.toFixed(2),
-                    totalSum: totalSum.toFixed(2),
-                    tax: tax.toFixed(2),
-                    delivery: delivery.toFixed(2),
-                    isAuthenticate: isAuthenticate,
+                User.findById(userId, (err, user) => {
+                    if (err) {
+                        return res.render('error/error-page', {
+                            pageTitle: 'Server Error',
+                            errorCode: 500,
+                            errorMessage: 'Internal Server Error',
+                        });
+                    } else {
+                        if (user != undefined) {
+                            res.render('checkout/checkout', {
+                                pageTitle: 'Checkout',
+                                order: orders,
+                                subTotal: subTotal.toFixed(2),
+                                totalSum: totalSum.toFixed(2),
+                                tax: tax.toFixed(2),
+                                delivery: delivery.toFixed(2),
+                                isAuthenticate: isAuthenticate,
+                                user: user,
+                            });
+                        } else {
+                            res.render('checkout/checkout', {
+                                pageTitle: 'Checkout',
+                                order: orders,
+                                subTotal: subTotal.toFixed(2),
+                                totalSum: totalSum.toFixed(2),
+                                tax: tax.toFixed(2),
+                                delivery: delivery.toFixed(2),
+                                isAuthenticate: isAuthenticate,
+                                user: { isLoyaltyCustomer: false },
+                            });
+                        }
+                    }
                 });
             }
         });
@@ -225,9 +250,9 @@ exports.pay = function (req, res, next) {
             userId != null
                 ? { user: userId, stage: constant.ORDER_STAGE_CART }
                 : {
-                    temporaryId: req.cookies.tempoId,
-                    stage: constant.ORDER_STAGE_CART,
-                };
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {

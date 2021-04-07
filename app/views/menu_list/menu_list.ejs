@@ -27,7 +27,11 @@
                     </div>
                 </div>
             </form>
-
+            <div class="text-center pt-4" style="padding-bottom: 20px;">
+                <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg button btn-primary" id="btn-MenuList">
+                    Home Page</a>
+                <a href="/cart" class="btn btn-lg btn-primary" id="btn-MenuList">Proceed to Cart</a>
+            </div>
             <div id="noResultsMessage" class="alert alert-danger text-center font-weight-bold"></div>
 
             <div class="productsContainer">
@@ -77,12 +81,6 @@
 
                 <% })%>
             </div>
-            <div class="text-center pt-4">
-                <a href="<%= isAuthenticate ? '/home' : '/' %>" class="btn btn-lg button btn-primary" id="btn-MenuList">
-                    Home Page</a>
-                <a href="/cart" class="btn btn-lg btn-primary" id="btn-MenuList">Proceed to Cart</a>
-            </div>
-
 
             <script>
                 // jQuery Live Search for products //

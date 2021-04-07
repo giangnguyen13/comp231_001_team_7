@@ -6,13 +6,12 @@
 </head>
 
 <body>
-
     <div class="coverImg">
-        <% if(isAuthenticate){%>
-            <%- include('../partials/navbar-auth'); %>
-        <%}else{%>
-            <%- include('../partials/navbar'); %>
-        <%}%>
+        <% if(isAuthenticate) {%>
+        <%- include('../partials/navbar-auth'); %>
+        <% }else{ %>
+        <%- include('../partials/navbar'); %>
+        <% } %>
     </div>
     <h2 style="color: white; margin-top: -110px; padding-left: 50px;">Checkout Page</h2>
     <main class="container" id="containerId">
@@ -20,12 +19,18 @@
             <div id="border">
                 <h4>Items:</h4>
                 <table class="table" style="margin-left: 50px; margin-right: 50px; width: 90%;">
+                    <tr style="font-weight: bold;">
+                        <td style="padding-left: 30px;">Quantity</td>
+                        <td>Name</td>
+                        <td colspan="2">Unit Price</td>
+                    </tr>
                     <% order.forEach(function(order){ %>
-                        <tr>
-                            <td><%= order.quantity %> * <%= order.title %></td>
-                            <td colspan="2"> $ <%= order.price %></td>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="padding-left: 55px;"><%= order.quantity %></td>
+                        <td><%= order.title %></td>
+                        <td colspan="2"> $ <%= order.price%></td>
+                        </td>
+                    </tr>
                     <% })%>
                 </table>
             </div>
@@ -33,7 +38,6 @@
                 <a class="btn btn-primary" id="btnCheckoutPg" href="/menu_list">+ Add Items</a>
             </div><br>
             <form method="post" action="/pay">
-                <!--Form starts here!! clicking on the -->
                 <div id="border">
                     <h4>Address:</h4>
                     <div>
@@ -42,7 +46,8 @@
                                 <tr>
                                     <td class="fieldLabel">
                                         <div>
-                                            <label for="streetAddress"><span class="required">*</span>Street Address:</label>
+                                            <label for="streetAddress"><span class="required">*</span>Street
+                                                Address:</label>
                                         </div>
                                     </td>
                                     <td>
@@ -83,8 +88,9 @@
                                     </td>
                                     <td>
                                         <div class="col-11">
-                                            <select name="province" id="province" class="form-control" >
-                                                <option value="" selected disabled>-- Please Select a Province --</option>
+                                            <select name="province" id="province" class="form-control">
+                                                <option value="" selected disabled>-- Please Select a Province --
+                                                </option>
                                                 <option value="British Columbia">British Columbia</option>
                                                 <option value="Alberta">Alberta</option>
                                                 <option value="Saskatchewan">Saskatchewan</option>
@@ -94,10 +100,11 @@
                                                 <option value="New Brunswick">New Brunswick</option>
                                                 <option value="Nova Scotia">Nova Scotia</option>
                                                 <option value="Prince Edward Island">Prince Edward Island</option>
-                                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                                                <option value="Newfoundland and Labrador">Newfoundland and Labrador
+                                                </option>
                                                 <option value="Yukon">Yukon</option>
                                             </select>
-                                        </div> 
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -108,7 +115,9 @@
                                     </td>
                                     <td>
                                         <div class="col-11">
-                                            <input type="text" class="form-control" name="postalCode" required>
+                                            <input type="text" class="form-control" name="postalCode"
+                                                pattern="[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]" title="Format: A0A
+                                                0A0" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -119,9 +128,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div  class="col-11">
-                                            <input type="text"  class="form-control" name="phone" required>
-                                        </div>    
+                                        <div class="col-11">
+                                            <input type="text" class="form-control"
+                                                pattern="[2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4}" name="phone" required>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -147,18 +157,19 @@
                                 <td>
                                     <div class="col-11">
                                         <input type="text" class="form-control" name="cardHolder" required>
-                                    </div>    
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="fieldLabel">
                                     <div>
                                         <label for="cardNumber"><span class="required">*</span>Card number:</label>
-                                    </div>    
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="col-11">
-                                        <input type="text" class="form-control" name="cardNumber" required>
+                                        <input type="text" class="form-control" name="cardNumber" pattern="[0-9]{13,16}"
+                                            required>
                                     </div>
                                 </td>
                             </tr>
@@ -166,31 +177,35 @@
                                 <td class="fieldLabel">
                                     <div>
                                         <label for="cardExpDate"><span class="required">*</span>Exp. Date:</label>
-                                    </div>    
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="col-11">
-                                        <input type="text" class="form-control" name="cardExpDate" required>
-                                    </div>    
+                                        <input type="text" class="form-control" name="cardExpDate" maxlength="4"
+                                            pattern="(?:0[1-9]|1[0-2])[0-9]{2}" title="Enter a date in this format MMYY"
+                                            required>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="fieldLabel">
                                     <div>
                                         <label for="cardCVV"><span class="required">*</span>CVV:</label>
-                                    </div>    
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="col-11">
-                                        <input type="text" class="form-control" name="cardCVV" required>
-                                    </div>    
+                                        <input type="text" class="form-control" name="cardCVV" minlength="3"
+                                            maxlength="3" pattern="[0-9]{3}"
+                                            title="The three digit number at the back of your card" required>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div><br>
 
-                <!--maybe this section is only visible only to the loyalty customers??-->
+                <% if(user.isLoyaltyCustomer) {%>
                 <div style="padding-left: 15px; padding-right: 15px;">
                     <table style="width: 100%;">
                         <tr>
@@ -204,7 +219,8 @@
                     </table>
                     <hr style="height: 4px; color: #b35900;">
                 </div>
-                <!---->
+                <% } %>
+
 
                 <div class="row justify-content-center">
                     <div class="col-5 ">

@@ -10,6 +10,10 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     firstName: String,
     lastName: String,
+    isLoyaltyCustomer: {
+        type: Boolean,
+        default: false,
+    },
     email: {
         type: String,
         // Validate the email format

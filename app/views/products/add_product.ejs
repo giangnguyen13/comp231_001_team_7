@@ -16,6 +16,10 @@
             >
 
             <hr>
+                <div class="row">
+                        <img id='preview' src="/img/products-img/beverage_placeholder.png"
+                            style="height: 20%; width: 20%; display: block; margin-left: auto; margin-right: auto;">
+                </div>
                 <div class="col-12">
                     <div class="row p-2">
                         <div class="col-5 text-right">
@@ -93,6 +97,7 @@
                                 class="form-control"
                                 accept="image/*"
                                 name="productImage"
+                                onchange="loadFile(event)"
                             />
                         </div>
                     </div>
@@ -107,14 +112,21 @@
                                 value="Add Product"
                             />
                         </div>
-                                    <div class="text-center pt-4">
-                                        <a href="/list_products" class="btn btn-lg btn-primary">
-                                            Menu Page</a>
-                                    </div>
                     </div>
                 </div>
   
             </form>
         </div>
+        <script>
+            const loadFile = function(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+            var preview = document.getElementById('preview');
+            preview.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+
+        </script>
     </body>
 </html>

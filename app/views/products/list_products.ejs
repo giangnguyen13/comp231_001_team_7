@@ -7,91 +7,157 @@
 <body>
     <%- include('../partials/staff-navbar-auth'); %>
     <h2 class="text-center">Update Menu List</h2>
-    <div class="container pt-4">
-    <table align="center" class="table table-hover">
-        <thead>
-     
-        <tr>
 
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Product ID:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Title:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Content:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Price:</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Update</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Image</label>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <label style="font-weight: bold;">Delete</label>
-                </div>
-            </td>
+    <div class="container pt-4" >
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Listview Display</label>
+                        </div>
+            <div class="productsContainer">
+ 
+                <% product.forEach(function(product){ %>
+         
+                    <form method="post" action="/list_products/<%= product.productId %>?_method=PUT" class="productForm show">
+                                <div id="border" class="row">
+                                    <div hidden>Id: <%= product.productId %>
+                                    </div>
+                                    <div class="col-3" style="padding-right: 10px; padding-top: 10px;">
+                                        <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img"
+                                            style="height: 95%; width: 100%;">
+                                    </div>
+                                    <div class="col-9" style="padding-left: 15px; padding-top: 25px;">
+                                        <div style="padding-left: 15px;">
+                                            <label style="font-weight: bold; font-size: large; margin-top: 5px; ">Title:</label>
+                                            <input type="text" class="col-4 form-control" name="title" value="<%= product.title %>" />
+                                        </div>
+                                        <div class="content" style="padding-left: 15px; padding-bottom: 15px; margin-top: 20px;">
+                                            <label style="font-weight: bold;">Content:</label>
+                                            <textarea type="text" class="form-control" name="content" ><%= product.content %></textarea>
+                                        </div>
+                                        <div class="row" style="padding-left: 15px;">
+                                            <div class="col-3">
+                                                <label style="font-weight: bold;">Price:</label>
+                                                <input type="number" class="form-control" name="price" value="<%= product.price %>" />
+                                            </div>
+                                              
+                                            <div class="col-1">
+                                                <button type="submit" class="btn btn-sm btn-success" value="Update Product" style="margin-top: 16px; border-radius: 5px;">
+                                                    <span class="material-icons">
+                                                        create
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-1">
+                                                <a class="btn btn-sm btn-success" href="/list_products/<%= product.productId %>" style="margin-top: 15px; ">
+                                                    <span class="material-icons">
+                                                        add_photo_alternate
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="col-1">
+                                                <form method="post" action="/list_products/<%= product.productId %>?_method=DELETE">
+                                                    <button type="submit" class="btn btn-sm btn-danger" value="Delete Product" style="margin-top: 15px;">
+                                                        <span class="material-icons">
+                                                            delete
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
 
-        </tr>
-        </thead>
-
-        <% product.forEach(function(product){ %>
-
-            <form method="post" action="/list_products/<%= product.productId %>?_method=PUT">
-                <tr>
-                    <td>
-                        <div>
-                            <input type="text" class="form-control" name="productId"  value="<%= product.productId %>" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="text" class="form-control" name="title" value="<%= product.title %>" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="text" class="form-control" name="content" value="<%= product.content %>" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <input type="number" class="form-control" name="price" value="<%= product.price %>" />
-                        </div>
-                    </td>
-                    <td class="col-xs-4">
-                        <div>
-                            <button type="submit" class="btn btn-sm btn-success" value="Update Product" style="margin-top: 0px;">
-                                <span class="material-icons">
-                                    create
-                                </span>
-                            </button>
-                    </td>
-                    <td>
-                            <a class="btn btn-sm btn-success" href="/list_products/<%= product.productId %>" style="margin-top: 0px;">
-                                <span class="material-icons">
-                                    add_photo_alternate
-                                </span>
-                            </a>
-                        </div>
-            </form>
+                               
+                                    </div>
+                                </div>
+                                <br>
+                    </form>
+            
+                    <% })%>
+            </div>
+        
+         
+         
+            <div class="productslistContainer">
+            <table align="center" class="table table-hover" >
+                <thead style="margin-top: 500px;">
+                    <tr>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Product ID:</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Title:</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Content:</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Price:</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Update</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Image</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <label style="font-weight: bold;">Delete</label>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <% product.forEach(function(product){ %>
+                    <form method="post" action="/list_products/<%= product.productId %>?_method=PUT">
+                        <tr>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control" name="productId" value="<%= product.productId %>" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control" name="title" value="<%= product.title %>" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control" name="content" value="<%= product.content %>" />
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="number" class="form-control" name="price" value="<%= product.price %>" />
+                                </div>
+                            </td>
+                            <td class="col-xs-4">
+                                <div>
+                                    <button type="submit" class="btn btn-sm btn-success" value="Update Product"
+                                        style="margin-top: 0px;">
+                                        <span class="material-icons">
+                                            create
+                                        </span>
+                                    </button>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="/list_products/<%= product.productId %>"
+                                    style="margin-top: 0px;">
+                                    <span class="material-icons">
+                                        add_photo_alternate
+                                    </span>
+                                </a>
+                                </div>
+                    </form>
                     </td>
                     <td class="col-xs-4">
                         <div>
@@ -104,13 +170,39 @@
                             </form>
                         </div>
                     </td>
-                </tr>
-            <% })%>
-    </table>
+                    </tr>
+                    <% })%>
+            </table>
+        </div>
+
     <div class="text-center pt-4">
         <a href="/add_product" class="btn btn-lg btn-primary">Add Product</a>
         <a href="/staff/dashboard" class="btn btn-lg btn-success"> Main Page</a>
     </div>
+                <script>
+    
+   $(document).ready(function () {
+        //set initial state.
+        // $('#flexSwitchCheckDefault').val(this.checked);
+        $(".productsContainer").css("display", "block");
+        $(".productslistContainer").css("display", "none");
+
+        $('#flexSwitchCheckDefault').change(function () {
+            if (this.checked) {
+                console.log('checked')
+                $(".productsContainer").css("display", "none");
+                $(".productslistContainer").css("display", "block");
+                                console.log('true')
+
+            }else{
+                $(".productsContainer").css("display", "block");
+                $(".productslistContainer").css("display", "none");
+                console.log('false')
+            }
+        });
+    });
+   
+                </script>
 </body>
 
 </html>

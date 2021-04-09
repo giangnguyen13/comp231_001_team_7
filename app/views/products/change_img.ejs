@@ -12,7 +12,7 @@
     <div class="container pt-4">
         <div class="text-center p-4">
             <h4>Preview/Change image</h4>
-            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img">
+            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img" style="max-width: 500px;">
         </div>
         <form action="/change_img" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_id" value="<%= product._id%>">

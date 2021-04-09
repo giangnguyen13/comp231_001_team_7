@@ -1,23 +1,24 @@
 // Load the 'Order' Mongoose model
 var Order = require('mongoose').model('Order');
 var Product = require('mongoose').model('Product');
+var User = require('mongoose').model('User');
+var constant = require('../../config/constant');
 
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const jwtKey = config.secretKey;
-const cart = 'Cart';
-const paid = 'Paid';
-const ordered = 'Ordered';
+
 // Create a new 'createOrder' controller method
 exports.createOrder = function (req, res, next) {
     // if user is authenticate, do something special
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = req.cookies.token != undefined;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     // Set cookie
@@ -32,7 +33,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: cart,
+            stage: constant.ORDER_STAGE_CART,
             temporaryId: req.cookies.tempoId,
         });
     } else {
@@ -41,7 +42,7 @@ exports.createOrder = function (req, res, next) {
             content: req.body.content,
             price: req.body.price,
             quantity: req.body.quantity,
-            stage: cart,
+            stage: constant.ORDER_STAGE_CART,
             user: payload.id,
         });
     }
@@ -77,21 +78,26 @@ exports.createOrder = function (req, res, next) {
 };
 
 exports.readCart = function (req, res, next) {
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = false;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     var userId = payload != null ? payload.id : null;
+    isAuthenticate = payload != null;
 
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             //console.log(order)
@@ -103,7 +109,7 @@ exports.readCart = function (req, res, next) {
                 //
                 console.log(orders);
                 res.render('cart/cart', {
-                    pageTitle: cart,
+                    pageTitle: constant.ORDER_STAGE_CART,
                     order: orders,
                     isAuthenticate: isAuthenticate,
                 });
@@ -153,21 +159,26 @@ exports.deleteById = function (req, res, next) {
 };
 
 exports.readCheckout = function (req, res, next) {
-    const isAuthenticate = req.cookies.token != undefined;
+    var isAuthenticate = false;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
     } catch (e) {
         console.log('Not logged in');
+        isAuthenticate = false;
     }
 
     var userId = payload != null ? payload.id : null;
+    isAuthenticate = payload != null;
 
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {
@@ -179,18 +190,42 @@ exports.readCheckout = function (req, res, next) {
                 for (let i = 0; i < orders.length; i++) {
                     subTotal += orders[i].quantity * orders[i].price;
                 }
-                var tax = subTotal * 1.13 - subTotal;
+                var tax = subTotal * constant.TAX_RATE - subTotal;
                 var delivery = 3;
-                var totalSum = subTotal * 1.13 + delivery;
+                var totalSum = subTotal * constant.TAX_RATE + delivery;
                 //
-                res.render('checkout/checkout', {
-                    pageTitle: 'Checkout',
-                    order: orders,
-                    subTotal: subTotal.toFixed(2),
-                    totalSum: totalSum.toFixed(2),
-                    tax: tax.toFixed(2),
-                    delivery: delivery.toFixed(2),
-                    isAuthenticate: isAuthenticate,
+                User.findById(userId, (err, user) => {
+                    if (err) {
+                        return res.render('error/error-page', {
+                            pageTitle: 'Server Error',
+                            errorCode: 500,
+                            errorMessage: 'Internal Server Error',
+                        });
+                    } else {
+                        if (user != undefined) {
+                            res.render('checkout/checkout', {
+                                pageTitle: 'Checkout',
+                                order: orders,
+                                subTotal: subTotal.toFixed(2),
+                                totalSum: totalSum.toFixed(2),
+                                tax: tax.toFixed(2),
+                                delivery: delivery.toFixed(2),
+                                isAuthenticate: isAuthenticate,
+                                user: user,
+                            });
+                        } else {
+                            res.render('checkout/checkout', {
+                                pageTitle: 'Checkout',
+                                order: orders,
+                                subTotal: subTotal.toFixed(2),
+                                totalSum: totalSum.toFixed(2),
+                                tax: tax.toFixed(2),
+                                delivery: delivery.toFixed(2),
+                                isAuthenticate: isAuthenticate,
+                                user: { isLoyaltyCustomer: false },
+                            });
+                        }
+                    }
                 });
             }
         });
@@ -200,6 +235,7 @@ exports.readCheckout = function (req, res, next) {
 };
 
 exports.pay = function (req, res, next) {
+    const isAuthenticate = req.cookies.token != undefined;
     var payload = null;
     try {
         payload = jwt.verify(req.cookies.token, jwtKey);
@@ -208,26 +244,31 @@ exports.pay = function (req, res, next) {
     }
 
     var userId = payload != null ? payload.id : null;
-
+    const trackingID = makeTrackingNumber();
     if (req.cookies.tempoId != null || userId != null) {
         let query =
             userId != null
-                ? { user: userId, stage: cart }
-                : { temporaryId: req.cookies.tempoId, stage: cart };
+                ? { user: userId, stage: constant.ORDER_STAGE_CART }
+                : {
+                      temporaryId: req.cookies.tempoId,
+                      stage: constant.ORDER_STAGE_CART,
+                  };
 
         Order.find(query, function (err, orders) {
             if (err) {
                 return next(err);
             } else {
                 for (let i = 0; i < orders.length; i++) {
-                    orders[i].stage = paid;
-                    orders[i].status = ordered;
-                    //orders[i].trackingNumber = randomNumber;
+                    orders[i].stage = constant.ORDER_STAGE_PAID;
+                    orders[i].status = constant.ORDER_STATUS_ORDERED;
+                    orders[i].trackingNumber = trackingID;
                     orders[i].save();
                 }
 
                 res.render('thank_you/thank_you', {
                     pageTitle: 'Thank You',
+                    trackingID: trackingID,
+                    isAuthenticate: isAuthenticate,
                 });
             }
         });
@@ -235,3 +276,74 @@ exports.pay = function (req, res, next) {
         res.redirect('/menu_list');
     }
 };
+
+exports.viewOrderByTrackingID = function (req, res) {
+    const isAuthenticate = req.cookies.token != undefined;
+    let orderId = req.query.orderid;
+    if (orderId) {
+        Order.find({ trackingNumber: orderId })
+            .sort({ created: 'desc' })
+            .exec(function (err, orders) {
+                if (err) {
+                    console.log(err);
+                    res.render('error/error-page', {
+                        pageTitle: '500',
+                        orders: {},
+                    });
+                } else if (orders.length > 0) {
+                    var orderStatusNumber = orders[0].status;
+                    if (orderStatusNumber != constant.ORDER_STATUS_DELIVERED) {
+                        orders.forEach((order) => {
+                            order.status = ++orderStatusNumber;
+                            order.save();
+                        });
+                    }
+
+                    if (isAuthenticate) {
+                        res.redirect(
+                            `/profile/order_history?orderid=${orderId}`
+                        );
+                    } else {
+                        res.render('order/order_id_tracking', {
+                            pageTitle: `Order ${orderId}`,
+                            orders: orders,
+                            isAuthenticate: isAuthenticate,
+                        });
+                    }
+                } else {
+                    res.render('error/error-page', {
+                        pageTitle: '404 Not found',
+                        errorCode: 404,
+                        errorMessage: 'Cannot find order',
+                    });
+                }
+            });
+    } else {
+        res.render('error/error-page', {
+            pageTitle: '404 Not found',
+            errorCode: 404,
+            errorMessage: 'Cannot find order',
+        });
+    }
+};
+
+exports.renderTrackOrderView = function (req, res) {
+    const isAuthenticate = req.cookies.token != undefined;
+    res.render('order/order_tracking', {
+        pageTitle: 'Track Order',
+        isAuthenticate: isAuthenticate,
+    });
+};
+function makeTrackingNumber() {
+    // auto generate 10 random character to stimulate tracking number
+    var result = '';
+    var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < constant.TRACKING_RAND_LENGTH; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    return result;
+}

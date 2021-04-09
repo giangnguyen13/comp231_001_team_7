@@ -7,12 +7,12 @@
 </head>
 
 <body>
-    <%- include('../partials/navbar-auth'); %>
+    <%- include('../partials/staff-navbar-auth'); %>
     <h2 class="text-center">This page is for admin</h2>
     <div class="container pt-4">
         <div class="text-center p-4">
             <h4>Preview/Change image</h4>
-            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img">
+            <img src="<%= product.productImagePath%>" alt="product-<%= product.productId%>-img" style="max-width: 500px;">
         </div>
         <form action="/change_img" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_id" value="<%= product._id%>">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="text-center pt-4">
-                <a href="/home" class="btn btn-lg btn-primary">
+                <a href="/staff/dashboard" class="btn btn-lg btn-primary">
                     Main Page</a>
             </div>
         </form>

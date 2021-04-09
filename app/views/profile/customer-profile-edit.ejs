@@ -35,6 +35,17 @@
                     </div>
                 </div>
                 <br />
+                <div class="row g-3 justify-content-center">
+                    <div class="col-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="isLoyaltyCustomer" id="isLoyaltyCustomer" <%= user.isLoyaltyCustomer ? 'checked' : ''%> >
+                            <label class="form-check-label" for="isLoyaltyCustomer">
+                                Subscribe to Loyalty Customer Program
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br />
                 <button type="submit" class="btn btn-primary">
                     Submit
                 </button>

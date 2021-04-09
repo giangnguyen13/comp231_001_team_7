@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="homebody">
+    <% if(isAuthenticate){%>
+        <%- include('../partials/navbar-auth'); %>
+    <%}else{%>
+        <%- include('../partials/navbar'); %>
+    <%}%>
+    <main class="container">
+        <div class="starter-template text-center py-5 px-3">
+            <button class="btn bt-menu" onclick="window.location.href='/menu_list'">ORDER NOW</button>
+            <div class="sub-text">
+                <h2>Brew4You Coffee</h2>
+                <h1>Order tracking</h1>
+                <form class="form-inline" action="" method="get">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <input type="text" id="order_id" class="form-control"
+                                placeholder="Enter tracking number here">
+                        </div>
+                        <div class="col-2">
+                            <a id="track_btn" class="btn btn-success" href="#">Track order</a>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script>
+        $(document).ready(function(){
+            $("#order_id").change(function(){
+                var orderId = $(this).val();
+                $("#track_btn").attr("href", `/view_order?orderid=${orderId}`)
+            })
+        })
+    </script>
+</body>
+</html>

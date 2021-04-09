@@ -69,4 +69,4 @@ StaffSchema.set('toJSON', {
 });
 
 // Create the 'Staff' model out of the 'StaffSchema'
-mongoose.model('Staff', StaffSchema);
+module.exports = mongoose.model('Staff', StaffSchema);

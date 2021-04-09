@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body class="reviewbody">
+        <%- include('../partials/navbar-auth'); %>
+        <main class="container">  
+            <div class="starter-template text-center py-5 px-0">
+                <h1 class="review-title">Leave Us a Review!</h1>
+                <p class="lead">We'd love to hear from you</p>
+                <br />
+                <div class="txt-center">
+                <form action="/review" method="POST">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-2">
+                            <br/>
+                            <h5>How did we do?</h5>
+                        </div>
+                        <div class="col-3">
+                            <div class="rating justify-content-center">
+                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                            <label for="star5">☆</label>
+                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                            <label for="star4">☆</label>
+                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                            <label for="star3">☆</label>
+                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                            <label for="star2">☆</label>
+                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                            <label for="star1">☆</label>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row justify-content-start comment mt-5">
+                        <label for="comment">Leave a Comment</label><br>
+                    </div>
+                    <div class="row justify-content-start comment">
+                        <input type="text" id="comment" name="comment" style="width: 50vw; height: 30vh;" />
+                    </div>
+                    <br />
+                    <div class="submit">
+                    <button type="submit" class="btn mt-5 bt-review">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -10,7 +10,7 @@ var OrderSchema = new Schema({
     quantity: Number,
     temporaryId: Number,
     stage: String,
-    status: String,
+    status: Number,
     trackingNumber: String,
     created: {
         type: Date,

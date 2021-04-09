@@ -88,11 +88,7 @@ exports.authenticate = function (req, res, next) {
                 });
                 next();
             } else {
-                res.json({
-                    status: 'error',
-                    message: 'Invalid email/password!!!',
-                    data: null,
-                });
+                res.redirect('/staff/login');
             }
         }
     });

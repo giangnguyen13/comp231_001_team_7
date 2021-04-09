@@ -9,10 +9,14 @@
     <h2 class="text-center">Update Menu List</h2>
 
     <div class="container pt-4" >
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Listview Display</label>
-                        </div>
+            <div class="text-center pt-4">
+                <a href="/add_product" class="btn btn-lg btn-primary">Add Product</a>
+                <a href="/staff/dashboard" class="btn btn-lg btn-success"> Main Page</a>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Listview Display</label>
+            </div>
             <div class="productsContainer">
  
                 <% product.forEach(function(product){ %>
@@ -175,7 +179,7 @@
             </table>
         </div>
 
-    <div class="text-center pt-4">
+    <div class="text-center pt-4 pb-4">
         <a href="/add_product" class="btn btn-lg btn-primary">Add Product</a>
         <a href="/staff/dashboard" class="btn btn-lg btn-success"> Main Page</a>
     </div>

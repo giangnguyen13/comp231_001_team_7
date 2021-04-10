@@ -126,7 +126,10 @@ exports.authenticate = function (req, res, next) {
         } else {
             console.log(user);
             //compare passwords
-            if (bcrypt.compareSync(password, user.password)) {
+            if (
+                user != undefined &&
+                bcrypt.compareSync(password, user.password)
+            ) {
                 // Create a new token with the user id in the payload
                 // and which expires 300 seconds after issue
                 const token = jwt.sign({ id: user._id }, jwtKey, {

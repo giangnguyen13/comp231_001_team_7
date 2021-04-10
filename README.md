@@ -6,7 +6,9 @@
 
 ## 2. `npm run dev` to run the application, default URL is [3000](http://localhost:3000/)
 
-## 3. `npm run seed` to seed static data for products and staffs
+## 3. `npm run seed` to seed static data for products and staffs. If you already run the application before, clear the database
+
+## Default Super User for admin is `admin@brew4you.ca` and password is `welcome`. Must run `npm run seed` to acquire this account
 
 # Naming Convention
 

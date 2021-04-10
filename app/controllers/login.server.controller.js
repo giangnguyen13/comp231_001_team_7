@@ -124,6 +124,9 @@ exports.authenticate = function (req, res, next) {
         if (err) {
             return next(err);
         } else {
+            if (!user) {
+                return res.redirect('/login'); // login error handle
+            }
             console.log(user);
             //compare passwords
             if (bcrypt.compareSync(password, user.password)) {

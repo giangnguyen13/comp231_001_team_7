@@ -3,6 +3,7 @@
 ## 1. `npm install` to install node packages if you newly cloned it from github
 ## 2. `npm run seed` for first time run application. If you already run the application before, clear the database
 ## 3. `npm run dev` to run the application, default URL is [3000](http://localhost:3000/)
+## Default Super User for admin is `admin@brew4you.ca` and password is `welcome`. Must run `npm run seed` to accquire this account
 # Naming Convention
 ## 1. All variable is camelCase, except for controller name in `app.server.routes.js` file
 ## 2. Model file is Singular, Ex User, Staff, Product, etc.

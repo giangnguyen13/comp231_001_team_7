@@ -72,7 +72,7 @@ exports.authenticate = function (req, res, next) {
             console.log(staff);
             //compare passwords
             if (
-                staff != undefined ||
+                staff != undefined &&
                 bcrypt.compareSync(password, staff.password)
             ) {
                 // Create a new token with the user id in the payload

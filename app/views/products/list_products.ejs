@@ -41,7 +41,7 @@
                                         <div class="row" style="padding-left: 15px;">
                                             <div class="col-3">
                                                 <label style="font-weight: bold;">Price:</label>
-                                                <input type="number" class="form-control" name="price" value="<%= product.price %>" />
+                                                <input type="number" class="form-control" min="1" oninput="validity.valid||(value='');" name="price" value="<%= product.price %>" />
                                             </div>
                                               
                                             <div class="col-1">
@@ -141,7 +141,7 @@
                             </td>
                             <td>
                                 <div>
-                                    <input type="number" class="form-control" name="price" value="<%= product.price %>" />
+                                    <input type="number" class="form-control" name="price" min="1" oninput="validity.valid||(value='');" value="<%= product.price %>" />
                                 </div>
                             </td>
                             <td class="col-xs-4">
